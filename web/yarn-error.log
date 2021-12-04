@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /opt/yarn-v1.22.15/bin/yarn.js add locLforage
+  /usr/local/bin/node /opt/yarn-v1.22.15/bin/yarn.js add @monaco-editorCcC
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -14,8 +14,8 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/locLforage: Not found
-      at Request.params.callback [as _callback] (/opt/yarn-v1.22.15/lib/cli.js:67031:18)
+  Error: https://registry.yarnpkg.com/@monaco-editorCcC: Request "https://registry.yarnpkg.com/@monaco-editorCcC" returned a 405
+      at Request.params.callback [as _callback] (/opt/yarn-v1.22.15/lib/cli.js:67040:18)
       at Request.self.callback (/opt/yarn-v1.22.15/lib/cli.js:140885:22)
       at Request.emit (node:events:390:28)
       at Request.<anonymous> (/opt/yarn-v1.22.15/lib/cli.js:141857:10)
@@ -29,10 +29,13 @@ Trace:
 npm manifest: 
   {
     "dependencies": {
+      "@monaco-editor/react": "3.7.5",
       "@types/react-redux": "^7.1.20",
       "axios": "^0.24.0",
       "esbuild-loader": "^2.16.0",
       "esbuild-wasm": "0.8.27",
+      "localforage": "^1.10.0",
+      "monaco-editor": "^0.30.1",
       "react-redux": "^7.2.6",
       "redux": "^4.1.2",
       "redux-thunk": "^2.4.0"
@@ -47,12 +50,27 @@ Lockfile:
   # yarn lockfile v1
   
   
+  "@babel/runtime@^7.11.0":
+    version "7.16.3"
+    resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.3.tgz#b86f0db02a04187a3c17caa77de69840165d42d5"
+    integrity sha512-WBwekcqacdY2e9AF/Q7WLFUWmdJGJTkbjqTjoMDgXkVZ3ZRUvOPsLb5KdwISoQVsbP+DQzVZW4Zhci0DvpbNTQ==
+    dependencies:
+      regenerator-runtime "^0.13.4"
+  
   "@babel/runtime@^7.15.4", "@babel/runtime@^7.9.2":
     version "7.16.0"
     resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.0.tgz#e27b977f2e2088ba24748bf99b5e1dece64e4f0b"
     integrity sha512-Nht8L0O8YCktmsDV6FqFue7vQLRx3Hb0B37lS5y0jDRqRxlBG4wIJHnf9/bgSE2UyipKFA01YtS+npRdTWBUyw==
     dependencies:
       regenerator-runtime "^0.13.4"
+  
+  "@monaco-editor/react@3.7.5":
+    version "3.7.5"
+    resolved "https://registry.yarnpkg.com/@monaco-editor/react/-/react-3.7.5.tgz#79b920296202aa970989c2c613778db249e675aa"
+    integrity sha512-rD6uK7zPuJq/xLv6QN+Qdk51wywXWSKhYeGjObultnsCsnp3FKaHY3O4pqjsss46SDZDG9IB/V3nymdMz1lFSg==
+    dependencies:
+      "@babel/runtime" "^7.11.0"
+      state-local "^1.0.1"
   
   "@types/hoist-non-react-statics@^3.3.0":
     version "3.3.1"
@@ -251,6 +269,11 @@ Lockfile:
     dependencies:
       react-is "^16.7.0"
   
+  immediate@~3.0.5:
+    version "3.0.6"
+    resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
+    integrity sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=
+  
   joycon@^3.0.1:
     version "3.0.1"
     resolved "https://registry.yarnpkg.com/joycon/-/joycon-3.0.1.tgz#9074c9b08ccf37a6726ff74a18485f85efcaddaf"
@@ -268,6 +291,13 @@ Lockfile:
     dependencies:
       minimist "^1.2.5"
   
+  lie@3.1.1:
+    version "3.1.1"
+    resolved "https://registry.yarnpkg.com/lie/-/lie-3.1.1.tgz#9a436b2cc7746ca59de7a41fa469b3efb76bd87e"
+    integrity sha1-mkNrLMd0bKWd56QfpGmz77dr2H4=
+    dependencies:
+      immediate "~3.0.5"
+  
   loader-utils@^2.0.0:
     version "2.0.2"
     resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-2.0.2.tgz#d6e3b4fb81870721ae4e0868ab11dd638368c129"
@@ -276,6 +306,13 @@ Lockfile:
       big.js "^5.2.2"
       emojis-list "^3.0.0"
       json5 "^2.1.2"
+  
+  localforage@^1.10.0:
+    version "1.10.0"
+    resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.10.0.tgz#5c465dc5f62b2807c3a84c0c6a1b1b3212781dd4"
+    integrity sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==
+    dependencies:
+      lie "3.1.1"
   
   loose-envify@^1.4.0:
     version "1.4.0"
@@ -288,6 +325,11 @@ Lockfile:
     version "1.2.5"
     resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
     integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
+  
+  monaco-editor@^0.30.1:
+    version "0.30.1"
+    resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.30.1.tgz#47f8d18a0aa2264fc5654581741ab8d7bec01689"
+    integrity sha512-B/y4+b2O5G2gjuxIFtCE2EkM17R2NM7/3F8x0qcPsqy4V83bitJTIO4TIeZpYlzu/xy6INiY/+84BEm6+7Cmzg==
   
   object-assign@^4.1.1:
     version "4.1.1"
@@ -351,6 +393,11 @@ Lockfile:
     version "0.6.1"
     resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
     integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
+  
+  state-local@^1.0.1:
+    version "1.0.7"
+    resolved "https://registry.yarnpkg.com/state-local/-/state-local-1.0.7.tgz#da50211d07f05748d53009bee46307a37db386d5"
+    integrity sha512-HTEHMNieakEnoe33shBYcZ7NX83ACUjCu8c40iOGEZsngj9zRnkqS9j1pqQPXwobB0ZcVTk27REb7COQ0UR59w==
   
   tapable@^2.2.0:
     version "2.2.1"
