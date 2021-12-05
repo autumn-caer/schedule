@@ -7,8 +7,6 @@ const App = () => {
   return (
     <div>
       <CodeCell/>
-      <div>interval</div>
-      <CodeCell/>
     </div>
   );
 };
