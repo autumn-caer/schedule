@@ -13,10 +13,10 @@ interface CodeEditorProps {
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
-  const editorRef = useRef<any>()
+  const editorRef = useRef<any>();
 
   const onEditorDidMount: EditorDidMount = (getValue, monacoEditor) => {
-    editorRef.current = monacoEditor
+    editorRef.current = monacoEditor;
     monacoEditor.onDidChangeModelContent(() => {
       onChange(getValue());
     });
@@ -29,7 +29,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
       codeShift,
       monacoEditor
     );
-
     highlighter.highLightOnDidChangeModelContent(
       () => {},
       () => {},
@@ -39,34 +38,40 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
   };
 
   const onFormatClick = () => {
-      console.log(editorRef.current)
-      //get current valur form editor
-      const unformatted = editorRef.current.getModel().getValue()
+    // get current value from editor
+    const unformatted = editorRef.current.getModel().getValue();
 
-      // format that value
-      const formatted = prettier.format(unformatted, {
-          parser: 'babel',
-          plugins: [parser],
-          useTabs: false,
-          semi: true,
-          singleQuote: true
-      }).replace(/\n$/, '');
+    // format that value
+    const formatted = prettier
+      .format(unformatted, {
+        parser: 'babel',
+        plugins: [parser],
+        useTabs: false,
+        semi: true,
+        singleQuote: true,
+      })
+      .replace(/\n$/, '');
 
-      //set the formatted valiue
-      editorRef.current.setValue(formatted)
-  }
+    // set the formatted value back in the editor
+    editorRef.current.setValue(formatted);
+  };
 
   return (
     <div className="editor-wrapper">
-      <button className= "button button-format is-primary is-small" onClick={onFormatClick}>Format</button>
+      <button
+        className="button button-format is-primary is-small"
+        onClick={onFormatClick}
+      >
+        Format
+      </button>
       <MonacoEditor
         editorDidMount={onEditorDidMount}
         value={initialValue}
-        language="javascript"
         theme="dark"
-        height="500px"
+        language="javascript"
+        height="100%"
         options={{
-          wordWrap: "on",
+          wordWrap: 'on',
           minimap: { enabled: false },
           showUnused: false,
           folding: false,
