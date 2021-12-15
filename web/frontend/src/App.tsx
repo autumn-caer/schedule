@@ -1,13 +1,17 @@
 import React from 'react'
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
 import TextEditor from './practise03/components/text-editor'
+import { Provider } from 'react-redux'
+import  {store } from './practise03/state' 
 
 const App = () => {
  
   return (
+    <Provider store={store}>
     <div>
       <TextEditor/>
     </div>
+    </Provider>
   );
 };
 
