@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@monaco-editor/react": "3.7.5",
     "@types/jscodeshift": "0.7.2",
     "@types/prettier": "^2.4.2",
