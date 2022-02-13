@@ -1,0 +1,98 @@
+.frame_color_light_blue {
+    height: 400px;
+    background-color: #eff5f4;
+    overflow: visible;
+}
+
+.frame_color_light_gray {
+    background-color: #dddfdf;
+}
+
+.frame_color_light_orange {
+    background-color: #ffdcad;
+}
+
+.frame_color_light_pink {
+    background-color: #f09797;
+}
+
+.padding_3_percent {
+    padding: 3%
+}
+
+.mb_7_percent {
+    margin-bottom: 7%
+}
+
+.position_relative {
+    position: relative !important;
+    margin-bottom: 30%;
+}
+
+.image_row_wrapper {
+    margin-top: 3%;
+}
+
+.image_row_wrapper ul {
+    padding: 0;
+    width: 60vw;
+    display: flex;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.image_row_wrapper ul li {
+    display: inline-block;
+    width: 10%;
+    min-width: 150px;
+    margin: 0 20px;
+    list-style: none;
+    text-align: center;
+}
+
+.prev,
+.next {
+    position: relative;
+    min-width: 7.3%;
+    cursor: pointer;
+    z-index: 1;
+}
+
+
+
+.prev div,
+.next div {
+    margin-top: 70px;
+    border-bottom: solid 1px #000;
+    transition: transform 0.2s, border 0.8s, color 0.8s;
+    transition-delay: 0;
+    text-align: right;
+    transform: translateX(20%);
+}
+
+.ani_slideup.on {
+    /* opacity: 1; */
+    transform: translateY(0);
+}
+
+.prev div {
+    text-align: right;
+    transform: translateX(20%);
+}
+
+.next div {
+    text-align: left;
+    transform: translateX(-20%);
+}
+
+.prev:hover div {
+    transition: transform 0.3s, border 0.8s, color 0.8s;
+    transition-delay: 0;
+    transform: translateX(40%);
+}
+
+.next:hover div {
+    transition: transform 0.3s, border 0.8s, color 0.8s;
+    transition-delay: 0;
+    transform: translateX(-40%);
+}

@@ -1,19 +1,23 @@
-import React from 'react'
-import 'bulmaswatch/superhero/bulmaswatch.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css'
-import { Provider } from 'react-redux'
-import  {store } from './practise03/state' 
-import CellList from './practise03/components/cell-list'
+import React from "react";
+import "bulmaswatch/pulse/bulmaswatch.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+import Header from "./practise04/components/layout/header";
+import Footer from "./practise04/components/layout/footer";
+import TopDisplay from "./practise04/components/top_display";
 
 const App = () => {
- 
   return (
-    <Provider store={store}>
-      <div>
-        <CellList/>
+    <div>
+      <Header />
+      <div className="hero ">
+        <div className="hero-body">
+          <TopDisplay />
+        </div>
+        <Footer />
       </div>
-    </Provider>
+    </div>
   );
 };
 
-export default App
+export default App;

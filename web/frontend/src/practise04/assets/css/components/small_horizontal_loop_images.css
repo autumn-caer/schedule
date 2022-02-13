@@ -1,0 +1,57 @@
+.slider_wrapper {
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slider_wrapper ul {
+    padding: 0;
+    width: 60vw;
+    margin: auto;
+    display: flex;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.slider_wrapper ul:first-child {
+    animation: slider 20s -10s linear infinite;
+}
+
+.slider_wrapper ul:last-child {
+    animation: slider_2 20s linear infinite;
+}
+
+.slider_wrapper ul li {
+    display: inline-block;
+    width: 50%;
+    margin-right: 20px;
+    list-style: none;
+    text-align: center;
+}
+
+.slider_wrapper ul li img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@keyframes slider {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slider_2 {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-200%);
+    }
+}
