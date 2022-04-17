@@ -1,7 +1,15 @@
+.mb_one_percent {
+    margin-bottom: 1%;
+}
+
 .frame_color_light_blue {
     height: 400px;
     background-color: #eff5f4;
     overflow: visible;
+}
+
+.frame_color_light_purple {
+    background-color: #f7f0f9;
 }
 
 .frame_color_light_gray {
@@ -95,4 +103,120 @@
     transition: transform 0.3s, border 0.8s, color 0.8s;
     transition-delay: 0;
     transform: translateX(-40%);
+}
+
+.colors {}
+
+.colors li {
+    position: relative;
+    margin: 10px 0;
+}
+
+.colors li div {
+    position: relative;
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    border: solid 3px #fff;
+    border-radius: 100px;
+    z-index: 1;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.colors li h3 {
+    min-width: 90%;
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 2px 8px 2px 15px;
+    font-weight: 600;
+    font-size: 2.0rem;
+    white-space: nowrap;
+}
+
+.colors li span {
+    position: relative;
+    left: 6%;
+    transform: translateY(-50%);
+    border-radius: 4px;
+    padding: 2px 8px 2px 15px;
+    white-space: nowrap;
+}
+
+.colors li.color0 div {
+    background-color: #d1d1d2;
+}
+
+.colors li.color1 div {
+    background-color: #828283;
+}
+
+.colors li.color2 div {
+    background-color: #d3bca5;
+}
+
+.colors li.color3 div {
+    background-color: #f09797;
+}
+
+.colors li.color4 div {
+    background-color: #7ac7b6;
+}
+
+.colors li.color5 div {
+    background-color: #966949;
+}
+
+.btns a {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.ani_btn.on {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.btns a {
+    display: inline-block;
+    padding: 34px 50px;
+    margin: 0 18px 0 0;
+    background-color: #333;
+    border-radius: 1000px;
+    text-decoration: none;
+    color: #fff;
+    transition: opacity 0.3s ease-out;
+    vertical-align: bottom;
+}
+
+.ani_btn {
+    display: inline-block;
+    transition: opacity .3s ease-in, transform .4s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    transform: scale(0.8);
+    opacity: 0;
+}
+
+.btns a.btn_direct {
+    padding: 26px 30px 25px 30px;
+    margin: 0;
+    background-color: #ffe600;
+    color: #333;
+}
+
+a {
+    outline: none;
+    color: #000;
+}
+
+.category_column {
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+}
+
+.category_column:hover {
+    background-color: #e6d9eb;
 }

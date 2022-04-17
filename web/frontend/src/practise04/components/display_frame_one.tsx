@@ -1,18 +1,13 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "../assets/css/components/display_frame_one.css";
-import main_image from "../assets/images/movie_ph0.jpeg";
 import SmallHorizontalLoopImages from "./small_horizontal_loop_images";
-import scroll_images_01 from "../assets/images/mv1_2.jpeg";
-import scroll_images_02 from "../assets/images/mv1_0.jpeg";
-import scroll_images_03 from "../assets/images/mv0_2.jpeg";
-import scroll_images_04 from "../assets/images/mv0_1.jpeg";
-import { imageTag } from "../types/types";
+import { category } from "../types/types";
 
-const DisplayFrameOne: React.FC = () => {
-  const images: imageTag[] = [
-    { source: scroll_images_01, name: "01" },
-    { source: scroll_images_02, name: "02" },
-  ];
+interface DisplayFrameOneProps {
+  category: category;
+}
+
+const DisplayFrameOne: React.FC<DisplayFrameOneProps> = ({ category }) => {
   return (
     <div className="position_relative">
       <div className="frame_color_light_blue"></div>
@@ -21,7 +16,7 @@ const DisplayFrameOne: React.FC = () => {
           <div className="card">
             <div className="card-image">
               <figure className="image is-3by3">
-                <img src={main_image} alt="Image" />
+                <img src={category.main_image.source} alt="Image" />
               </figure>
             </div>
           </div>
@@ -31,16 +26,18 @@ const DisplayFrameOne: React.FC = () => {
             <div className="has-text-left">
               <div className="is-parent is-vertical">
                 <article className="is-child mb_7_percent">
-                  <p className="subtitle">ふと足元を見つめたら、</p>
+                  <p className="subtitle">{category.message_top}</p>
                 </article>
                 <article className="is-child mb_7_percent">
-                  <p className="is-size-5">ありきたりなものじゃ伝わらない。</p>
+                  <p className="is-size-5">{category.message_middle}</p>
                 </article>
                 <article className="is-child mb_7_percent">
-                  <p className="is-size-5">ありきたりなものじゃ伝わらない。</p>
+                  <p className="is-size-5">{category.message_below}</p>
                 </article>
                 <article className="is-child mb_7_percent">
-                  <SmallHorizontalLoopImages image_tags={images} />
+                  <SmallHorizontalLoopImages
+                    scroll_tasks={category.scroll_tasks}
+                  />
                 </article>
               </div>
             </div>

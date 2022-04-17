@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import "../assets/css/components/small_horizontal_loop_images.css";
-import { imageTag } from "../types/types";
+import { task } from "../types/types";
 
 interface SmallHorizontalLoopImagesProps {
-  image_tags: imageTag[];
+  scroll_tasks: task[];
 }
 
 const SmallHorizontalLoopImages: React.FC<SmallHorizontalLoopImagesProps> = ({
-  image_tags,
+  scroll_tasks,
 }) => {
-  var list = image_tags.map(function (image_source) {
+  var list = scroll_tasks.map(function (task) {
     return (
       <li>
         <a href="#">
-          <img src={image_source.source} />
-          {image_source.name}
+          <img src={task.image_source} />
+          {task.title}
         </a>
       </li>
     );

@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import "../assets/css/components/horizontal_loop_images.css";
-import { imageTag } from "../types/types";
+import { task } from "../types/types";
 
 interface HorizontalLoopImagesProps {
-  sources: imageTag[];
+  tasks: task[];
 }
 
 const HorizontalLoopImages: React.FC<HorizontalLoopImagesProps> = ({
-  sources,
+  tasks,
 }) => {
-  var list = sources.map(function (image_source) {
+  var list = tasks.map(function (task) {
     return (
       <li>
         <a href="#">
-          <img src={image_source.source} />
-          {image_source.name}
+          <img src={task.image_source} />
+          {task.title}
         </a>
       </li>
     );
