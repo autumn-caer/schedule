@@ -26,34 +26,34 @@ const CategoryList: React.FC<CategoryListProps> = () => {
 
   var categories_list = categories.map(function (category, index) {
     return (
-      <section
-        className="frame_color_light_purple has-text-left mb_one_percent category_column"
-        onClick={() => show_task_list(index)}
-      >
-        　　
-        <ul className="colors an anime ani_blur on">
-          <li className="color0">
-            <div></div>
-            <h3 className="subtitle">{category.message_top}</h3>
-          </li>
-          <li>
-            <span>{category.message_middle}</span>
-          </li>
-          <li>
-            <span>{category.message_below}</span>
-          </li>
-        </ul>
+      <div className="frame_color_light_purple has-text-left mb_one_percent category_column">
+        <div onClick={() => show_task_list(index)}>
+          {" "}
+          　　
+          <ul className="colors an anime ani_blur on">
+            <li className="color0">
+              <div></div>
+              <h3 className="subtitle">{category.message_top}</h3>
+            </li>
+            <li>
+              <span>{category.message_middle}</span>
+            </li>
+            <li>
+              <span>{category.message_below}</span>
+            </li>
+          </ul>
+        </div>
         <div
           className={category.task_list_desplay ? "is-visible" : "is-hidden"}
         >
-          <TaskList title={""} image_tags={ext_imaages} />
+          <TaskList title={""} category={category} image_tags={ext_imaages} />
         </div>
-      </section>
+      </div>
     );
   });
 
   return (
-    <div className="position_relative">
+    <div className="position_relative mb_5">
       <div className="columns">
         <div className="column is-full">
           <div className="is-parent">

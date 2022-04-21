@@ -1,47 +1,42 @@
 import React, { Fragment } from "react";
 import "../assets/css/components/display_frame_one.css";
-import { imageTag } from "../types/types";
+import { imageTag, category, task } from "../types/types";
 import TaskListColumn from "./task_list_column";
-import TitleCard from "../atoms/title_card";
 
 interface TaskListProps {
   title: string;
+  category: category;
   image_tags: imageTag[];
 }
 
-const TaskList: React.FC<TaskListProps> = ({ title, image_tags }) => {
-  var image_list = image_tags.map(function (image_source) {
+const TaskList: React.FC<TaskListProps> = ({ category }) => {
+  const sliceByNumber = (array: Array<task>, number: number) => {
+    const length = Math.ceil(array.length / number);
+    return new Array(length)
+      .fill(null)
+      .map((_, i) => array.slice(i * number, (i + 1) * number));
+  };
+
+  var task_rows = sliceByNumber(category.scroll_tasks, 3);
+  var task_list_column_rows = task_rows.map(function (task_array, index) {
     return (
-      <li>
-        <img src={image_source.source} />
-      </li>
+      <div className="columns">
+        {task_array.map(function (task, i) {
+          return <TaskListColumn children={task} />;
+        })}
+      </div>
     );
   });
+
   return (
-    <div className="position_relative">
+    <div className="position_relative mb_5">
       <div className="columns">
         <div className="column is-full frame_color_light_gray">
           <div className="is-parent">
             <div className="columns">
               <div className="column"></div>
               <div className="column is-four-fifths">
-                <div className="title is-1">{title}</div>
-                <TitleCard title={"Category_1"} description={"description"} />
-                <div className="columns">
-                  <TaskListColumn />
-                  <TaskListColumn />
-                  <TaskListColumn />
-                </div>
-                <div className="columns">
-                  <TaskListColumn />
-                  <TaskListColumn />
-                  <TaskListColumn />
-                </div>
-                <div className="columns">
-                  <TaskListColumn />
-                  <TaskListColumn />
-                  <TaskListColumn />
-                </div>
+                {task_list_column_rows}
               </div>
               <div className="column"></div>
             </div>

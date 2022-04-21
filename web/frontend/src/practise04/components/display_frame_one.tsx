@@ -9,7 +9,7 @@ interface DisplayFrameOneProps {
 
 const DisplayFrameOne: React.FC<DisplayFrameOneProps> = ({ category }) => {
   return (
-    <div className="position_relative">
+    <div className="position_relative mb_20">
       <div className="frame_color_light_blue"></div>
       <div className="columns" style={{ position: "absolute", top: "100px" }}>
         <div className="column is-one-third">

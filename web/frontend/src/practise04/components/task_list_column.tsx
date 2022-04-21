@@ -5,13 +5,6 @@ import { imageTag } from "../types/types";
 interface TaskListColumnProps {}
 
 const TaskListColumn: React.FC<TaskListColumnProps> = ({}) => {
-  //   var image_list = image_tags.map(function (image_source) {
-  //     return (
-  //       <li>
-  //         <img src={image_source.source} />
-  //       </li>
-  //     );
-  //   });
   return (
     <div className="column">
       <div className="card">

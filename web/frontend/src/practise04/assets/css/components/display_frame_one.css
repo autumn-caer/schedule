@@ -34,7 +34,18 @@
 
 .position_relative {
     position: relative !important;
+}
+
+.mb_20 {
+    margin-bottom: 20%;
+}
+
+.mb_30 {
     margin-bottom: 30%;
+}
+
+.mb_5 {
+    margin-bottom: 5%;
 }
 
 .image_row_wrapper {

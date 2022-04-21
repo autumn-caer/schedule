@@ -28,7 +28,7 @@ const initialState: CategoriesState = {
           to_date: "",
         },
         {
-          category_id: "1",
+          category_id: "2",
           image_source: scroll_images_02,
           title: "task_02",
           description: "",
@@ -36,7 +36,7 @@ const initialState: CategoriesState = {
           to_date: "",
         },
         {
-          category_id: "1",
+          category_id: "3",
           image_source: scroll_images_03,
           title: "task_03",
           description: "",
@@ -44,7 +44,23 @@ const initialState: CategoriesState = {
           to_date: "",
         },
         {
-          category_id: "1",
+          category_id: "4",
+          image_source: scroll_images_04,
+          title: "task_04",
+          description: "",
+          from_date: "",
+          to_date: "",
+        },
+        {
+          category_id: "5",
+          image_source: scroll_images_04,
+          title: "task_04",
+          description: "",
+          from_date: "",
+          to_date: "",
+        },
+        {
+          category_id: "6",
           image_source: scroll_images_04,
           title: "task_04",
           description: "",

@@ -79,7 +79,6 @@ const TopDisplay: React.FC = () => {
       </section>
       <TitleCard title={"Category_1"} description={"description"} />
       {categories_list}
-      <TaskList title={"Categories_list"} image_tags={ext_imaages} />
     </div>
   );
 };
