@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import "../assets/css/components/display_frame_one.css";
 import { imageTag, category, task } from "../types/types";
 import TaskListColumn from "./task_list_column";
-
+import * as COMMON_FUNC from "../utils/common_function";
 interface TaskListProps {
   title: string;
   category: category;
@@ -10,14 +10,7 @@ interface TaskListProps {
 }
 
 const TaskList: React.FC<TaskListProps> = ({ category }) => {
-  const sliceByNumber = (array: Array<task>, number: number) => {
-    const length = Math.ceil(array.length / number);
-    return new Array(length)
-      .fill(null)
-      .map((_, i) => array.slice(i * number, (i + 1) * number));
-  };
-
-  var task_rows = sliceByNumber(category.scroll_tasks, 3);
+  var task_rows = COMMON_FUNC.sliceByNumber(category.scroll_tasks, 3);
   var task_list_column_rows = task_rows.map(function (task_array, index) {
     return (
       <div className="columns">
