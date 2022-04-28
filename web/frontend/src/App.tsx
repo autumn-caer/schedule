@@ -30,12 +30,21 @@ const App = () => {
           <div className="hero-body">
             <Routes>
               <Route path="/" element={<TopDisplay />} />
-              <Route
-                path="/task"
-                element={
-                  <TaskRegister title={"register"} image_tags={ext_imaages} />
-                }
-              ></Route>
+              <Route path="/task">
+                <Route
+                  path=""
+                  element={
+                    <TaskRegister title={"register"} image_tags={ext_imaages} />
+                  }
+                ></Route>
+                <Route
+                  path=":id"
+                  element={
+                    <TaskRegister title={"register"} image_tags={ext_imaages} />
+                  }
+                ></Route>
+              </Route>
+
               <Route
                 path="/category"
                 element={

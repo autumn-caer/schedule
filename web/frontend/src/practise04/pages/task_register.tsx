@@ -7,6 +7,7 @@ import { category, task } from "../types/types";
 
 import main_image from "../assets/images/movie_ph0.jpeg";
 import scroll_images_01 from "../assets/images/mv1_2.jpeg";
+import { useParams } from "react-router-dom";
 
 interface TaskRegisterProps {
   title: string;
@@ -23,6 +24,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({ title, image_tags }) => {
   const [image_name, setImageName] = useState<string | null>("");
   const [image, setImage] = useState<string>("");
   const { registerTask } = useActions();
+  const { id } = useParams();
 
   const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
@@ -38,6 +40,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({ title, image_tags }) => {
 
   const onClick = async () => {
     let test: task = {
+      id: Math.random(),
       category_id: "1",
       image_source: scroll_images_01,
       title: "task_01",

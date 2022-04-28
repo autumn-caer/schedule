@@ -26,11 +26,11 @@ const CategoryList: React.FC<CategoryListProps> = () => {
 
   var categories_list = categories.map(function (category, index) {
     return (
-      <div className="frame_color_light_purple has-text-left mb_one_percent category_column">
+      <div className="frame_color_light_purple has-text-left mb_one_percent category_column_wrapper hover_color_primary">
         <div onClick={() => show_task_list(index)}>
           {" "}
           　　
-          <ul className="colors an anime ani_blur on">
+          <ul className="colors an anime ani_blur on category_column">
             <li className="color0">
               <div></div>
               <h3 className="subtitle">{category.message_top}</h3>

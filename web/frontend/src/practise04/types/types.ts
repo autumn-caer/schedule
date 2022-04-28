@@ -4,6 +4,7 @@ export type imageTag = {
 };
 
 export type task = {
+  id: number;
   image_source?: string;
   title: string;
   description: string;
@@ -20,4 +21,9 @@ export type category = {
   message_middle: string;
   message_below: string;
   task_list_desplay: boolean;
+};
+
+export type RootStackParamList = {
+  TopDisplay: undefined;
+  TaskRegister: {};
 };

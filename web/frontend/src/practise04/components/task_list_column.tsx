@@ -1,29 +1,34 @@
 import React, { Fragment } from "react";
 import "../assets/css/components/display_frame_one.css";
-import { imageTag } from "../types/types";
+import { imageTag, task } from "../types/types";
+import { useNavigate } from "react-router-dom";
 
-interface TaskListColumnProps {}
+interface TaskListColumnProps {
+  task: task;
+}
 
-const TaskListColumn: React.FC<TaskListColumnProps> = ({}) => {
+const TaskListColumn: React.FC<TaskListColumnProps> = ({ task }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="column">
-      <div className="card">
-        <div className="card-image">
+    <div className="column" onClick={() => navigate(`/task/${task.id}`)}>
+      <div className="card is-clickable hover_color_primary">
+        <div className="card-image p-3">
           <figure className="image is-4by3">
-            <img
-              src="https://bulma.io/images/placeholders/1280x960.png"
-              alt="Placeholder image"
-            />
+            <img src={task.image_source} alt="image" />
           </figure>
         </div>
         <div className="card-content">
           <div className="media">
             <div className="media-left">
-              <span className="tag has-text-left">One</span>
+              <span className="tag has-text-left">#{task.category_id}</span>
             </div>
             <div className="media-content">
-              <p className="title is-4">John Smith</p>
-              <p className="subtitle is-6">@johnsmith</p>
+              <p className="title is-4">{task.title}</p>
+              <p className="subtitle is-6">{task.description}</p>
+              <p className="tag is-primary">
+                {task.from_date}-{task.to_date}
+              </p>
             </div>
           </div>
         </div>

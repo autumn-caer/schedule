@@ -15,6 +15,7 @@ interface RandomSmallSlideState {
 const initialState: RandomSmallSlideState = {
   tasks: [
     {
+      id: 1,
       category_id: "1",
       image_source: scroll_images_01,
       title: "task_01",
@@ -23,6 +24,7 @@ const initialState: RandomSmallSlideState = {
       to_date: "",
     },
     {
+      id: 2,
       category_id: "1",
       image_source: scroll_images_02,
       title: "task_02",
@@ -31,6 +33,7 @@ const initialState: RandomSmallSlideState = {
       to_date: "",
     },
     {
+      id: 3,
       category_id: "1",
       image_source: scroll_images_03,
       title: "task_03",
@@ -39,6 +42,7 @@ const initialState: RandomSmallSlideState = {
       to_date: "",
     },
     {
+      id: 4,
       category_id: "1",
       image_source: scroll_images_04,
       title: "task_04",

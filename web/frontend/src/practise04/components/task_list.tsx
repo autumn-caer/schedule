@@ -1,8 +1,10 @@
 import React, { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import "../assets/css/components/display_frame_one.css";
 import { imageTag, category, task } from "../types/types";
 import TaskListColumn from "./task_list_column";
 import * as COMMON_FUNC from "../utils/common_function";
+
 interface TaskListProps {
   title: string;
   category: category;
@@ -15,7 +17,7 @@ const TaskList: React.FC<TaskListProps> = ({ category }) => {
     return (
       <div className="columns">
         {task_array.map(function (task, i) {
-          return <TaskListColumn children={task} />;
+          return <TaskListColumn task={task} />;
         })}
       </div>
     );

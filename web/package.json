@@ -2,8 +2,11 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@monaco-editor/react": "3.7.5",
+    "@react-navigation/native": "^6.0.10",
+    "@react-navigation/stack": "^6.2.1",
     "@types/jscodeshift": "0.7.2",
     "@types/prettier": "^2.4.2",
+    "@types/react-navigation": "^3.4.0",
     "@types/react-redux": "7.1.15",
     "@types/react-resizable": "1.7.2",
     "@types/react-router": "^5.1.18",
@@ -28,5 +31,8 @@
     "react-swipeable-views": "^0.14.0",
     "redux": "4.0.5",
     "redux-thunk": "2.3.0"
+  },
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.70.2"
   }
 }

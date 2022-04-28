@@ -14,9 +14,10 @@ import ext_img2_2 from "../assets/images/ext_img2_2.png";
 import ext_img2_3 from "../assets/images/ext_img2_3.png";
 
 import Image from "../assets/images/mv0.jpeg";
-import { imageTag } from "../types/types";
+import { imageTag, RootStackParamList } from "../types/types";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import { useNavigate } from "react-router-dom";
+import { StackScreenProps } from "@react-navigation/stack";
 
 const TopDisplay: React.FC = () => {
   const ext_imaages: imageTag[] = [
