@@ -1,9 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "../assets/css/components/display_frame_one.css";
 import { imageTag } from "../types/types";
 import { useActions } from "../hooks/use-actions";
-import TaskListColumn from "./task_list_column";
-import TitleCard from "../atoms/title_card";
+
 import TaskList from "./task_list";
 import { category } from "../types/types";
 import { useTypedSelector } from "../hooks/use-typed-selector";

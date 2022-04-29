@@ -1,5 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "bulmaswatch/pulse/bulmaswatch.min.css";
+
+import "bulma-calendar/dist/css/bulma-calendar.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Provider } from "react-redux";
 import { store } from "./practise04/state";
@@ -31,18 +33,8 @@ const App = () => {
             <Routes>
               <Route path="/" element={<TopDisplay />} />
               <Route path="/task">
-                <Route
-                  path=""
-                  element={
-                    <TaskRegister title={"register"} image_tags={ext_imaages} />
-                  }
-                ></Route>
-                <Route
-                  path=":id"
-                  element={
-                    <TaskRegister title={"register"} image_tags={ext_imaages} />
-                  }
-                ></Route>
+                <Route path="" element={<TaskRegister />}></Route>
+                <Route path=":id" element={<TaskRegister />}></Route>
               </Route>
 
               <Route

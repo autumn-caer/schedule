@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "../assets/css/components/display_frame_one.css";
 import { imageTag, task } from "../types/types";
 import { useNavigate } from "react-router-dom";
