@@ -1,8 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import "../assets/css/components/display_frame_one.css";
 import "../assets/css/components/task_register.css";
-// import bulmaCalendar from "bulma-calendar/dist/js/bulma-calendar.min.js";
-import bulmaCalendar from "bulma-calendar";
+import DatePicker from "react-datepicker";
 
 import { imageTag } from "../types/types";
 import { useActions } from "../hooks/use-actions";
@@ -42,7 +41,13 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
     task ? task.category_id : ""
   );
 
-  const limitRef = useRef<HTMLSelectElement | null>(null);
+  const [startDate, setStartDate] = useState(
+    task ? new Date(task.from_date) : new Date()
+  );
+  const [limitDate, setLimitDate] = useState(
+    task ? new Date(task.to_date) : new Date()
+  );
+
   const imageRef = useRef<HTMLInputElement | null>(null);
 
   const [image_name, setImageName] = useState<string | null>("");
@@ -50,37 +55,27 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
   const { registerTask } = useActions();
 
   const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-    if (e.target != null) {
-      if (e.target.files != null) {
-        if (e.target.files != null) {
-          setImageName(e.target.files.item(0)!.name);
-          setImage(URL.createObjectURL(e.target.files.item(0)));
-        }
-      }
+    if (e.target != null && e.target.files != null) {
+      setImageName(e.target.files.item(0)!.name);
+      setImage(URL.createObjectURL(e.target.files.item(0)));
     }
   };
 
   const onClick = async () => {
     let test: task = {
       id: Math.random(),
-      category_id: "1",
-      image_source: scroll_images_01,
-      title: "task_01",
-      description: "",
-      from_date: "",
-      to_date: "",
+      category_id: category,
+      image_source: image,
+      title: title,
+      description: description,
+      from_date: startDate.toString(),
+      to_date: limitDate.toString(),
     };
+    console.log(test);
   };
 
   var categories_options = categories.map(function (category, index) {
     return <option value={category.category_id}>{category.message_top}</option>;
-  });
-
-  console.log(bulmaCalendar);
-
-  var myCal = bulmaCalendar.attach(".demo", {
-    type: "time",
   });
 
   return (
@@ -120,17 +115,27 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
                     />
                   </div>
                 </div>
-                <div className="field">
-                  <input className="demo" />
 
+                <div className="field">
                   <div className="control">
-                    <label className="label">Limit</label>
-                    <div className="select is-rounded">
-                      <select ref={limitRef}>
-                        <option>Rounded dropdown</option>
-                        <option>With options</option>
-                      </select>
-                    </div>
+                    <label className="label">Start Date</label>
+                    <DatePicker
+                      dateFormat="yyyy/MM/dd"
+                      selected={startDate}
+                      onChange={(date: Date) => setStartDate(date)}
+                      className="input is-rounded"
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="control">
+                    <label className="label">Limit Date</label>
+                    <DatePicker
+                      dateFormat="yyyy/MM/dd"
+                      selected={limitDate}
+                      onChange={(date: Date) => setLimitDate(date)}
+                      className="input is-rounded"
+                    />
                   </div>
                 </div>
                 <div className="field">

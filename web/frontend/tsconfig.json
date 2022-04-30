@@ -7,9 +7,6 @@
       "esnext"
     ],
     "baseUrl": ".",
-    "paths": {
-      "bulmaCalendar": ["types/bulma-calendar"]
-    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

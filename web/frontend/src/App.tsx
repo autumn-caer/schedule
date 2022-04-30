@@ -1,7 +1,7 @@
 import React from "react";
 import "bulmaswatch/pulse/bulmaswatch.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 
-import "bulma-calendar/dist/css/bulma-calendar.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Provider } from "react-redux";
 import { store } from "./practise04/state";
