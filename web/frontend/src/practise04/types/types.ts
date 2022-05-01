@@ -14,12 +14,13 @@ export type task = {
 };
 
 export type category = {
-  category_id: string;
+  category_id: string | null;
+  name: string;
   main_image: imageTag;
   scroll_tasks: task[];
   message_top: string;
   message_middle: string;
-  message_below: string;
+  message_bottom: string;
   task_list_desplay: boolean;
 };
 

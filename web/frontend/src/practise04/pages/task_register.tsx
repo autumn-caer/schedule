@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../assets/css/components/display_frame_one.css";
 import "../assets/css/components/task_register.css";
 import DatePicker from "react-datepicker";
@@ -9,7 +9,6 @@ import { task } from "../types/types";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import { useNavigate } from "react-router-dom";
 
-import scroll_images_01 from "../assets/images/mv1_2.jpeg";
 import { useParams } from "react-router-dom";
 import * as COMMON_FUNC from "../utils/common_function";
 
@@ -27,13 +26,13 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
     );
 
     if (!target_category) {
-      throw new Error("dataset multiple same id.");
+      throw new Error("カテゴリーが存在しません。");
     }
 
     task = target_category.scroll_tasks.find((task) => task.id === Number(id));
 
     if (!task) {
-      throw new Error("dataset multiple same id.");
+      throw new Error("カテゴリーが存在しません。");
     }
   }
   const [title, setTilte] = useState<string>(task ? task.title : "");
@@ -41,7 +40,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
     task ? task.description : ""
   );
   const [category, setCategory] = useState<string>(
-    task ? task.category_id : categories[0].category_id
+    task ? task.category_id : ""
   );
 
   const [startDate, setStartDate] = useState(
@@ -80,7 +79,11 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
   };
 
   var categories_options = categories.map(function (category, index) {
-    return <option value={category.category_id}>{category.message_top}</option>;
+    if (category && category.category_id) {
+      return (
+        <option value={category.category_id}>{category.message_top}</option>
+      );
+    }
   });
 
   return (
@@ -198,13 +201,23 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <button
-                    className="button is-medium is-responsive"
-                    onClick={onClick}
-                  >
-                    Submit
-                  </button>
+                <div className="columns">
+                  <div className="column is-one-fifth">
+                    <button
+                      className="button is-medium is-responsive"
+                      onClick={onClick}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                  <div className="column is-one-fifth">
+                    <button
+                      className="button is-medium is-responsive"
+                      onClick={() => navigate("/")}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="column"></div>

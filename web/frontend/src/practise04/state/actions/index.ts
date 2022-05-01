@@ -78,7 +78,7 @@ export interface RegisterCategoryAction {
 export interface UpdateCategoryAction {
   type: ActionType.UPDATE_CATEGORY;
   payload: {
-    cellId: string;
+    cellId: string | null;
     category: category;
   };
 }

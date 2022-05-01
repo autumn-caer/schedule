@@ -83,7 +83,7 @@ export const registerCategory = (
 };
 
 export const updateCategory = (
-  id: string,
+  id: string | null,
   category: category
 ): UpdateCategoryAction => {
   return {

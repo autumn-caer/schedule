@@ -20,7 +20,9 @@ const CategoryList: React.FC<CategoryListProps> = () => {
       ...old_category,
       task_list_desplay: !old_category.task_list_desplay,
     };
-    updateCategory(updated_category.category_id, updated_category);
+    if (updated_category && updated_category.category_id) {
+      updateCategory(updated_category.category_id, updated_category);
+    }
   };
 
   var categories_list = categories.map(function (category, index) {
@@ -38,7 +40,7 @@ const CategoryList: React.FC<CategoryListProps> = () => {
               <span>{category.message_middle}</span>
             </li>
             <li>
-              <span>{category.message_below}</span>
+              <span>{category.message_bottom}</span>
             </li>
           </ul>
         </div>
@@ -64,15 +66,7 @@ const CategoryList: React.FC<CategoryListProps> = () => {
                     className="button is-primary is-light"
                     onClick={() => navigate("/category")}
                   >
-                    Primary
-                  </button>
-                </div>
-                <div className="column">
-                  <button
-                    className="button is-link is-light"
-                    onClick={() => navigate("/category")}
-                  >
-                    Link
+                    カテゴリー追加
                   </button>
                 </div>
               </div>

@@ -32,7 +32,7 @@ const DisplayFrameOne: React.FC<DisplayFrameOneProps> = ({ category }) => {
                   <p className="is-size-5">{category.message_middle}</p>
                 </article>
                 <article className="is-child mb_7_percent">
-                  <p className="is-size-5">{category.message_below}</p>
+                  <p className="is-size-5">{category.message_bottom}</p>
                 </article>
                 <article className="is-child mb_7_percent">
                   <SmallHorizontalLoopImages

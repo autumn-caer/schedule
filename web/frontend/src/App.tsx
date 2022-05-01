@@ -36,16 +36,10 @@ const App = () => {
                 <Route path="" element={<TaskRegister />}></Route>
                 <Route path=":id" element={<TaskRegister />}></Route>
               </Route>
-
-              <Route
-                path="/category"
-                element={
-                  <CategoryRegister
-                    title={"category_register"}
-                    image_tags={ext_imaages}
-                  />
-                }
-              ></Route>
+              <Route path="/category">
+                <Route path="" element={<CategoryRegister />}></Route>
+                <Route path=":id" element={<CategoryRegister />}></Route>
+              </Route>
             </Routes>
           </div>
         </div>

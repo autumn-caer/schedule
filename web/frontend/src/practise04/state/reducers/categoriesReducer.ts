@@ -16,7 +16,8 @@ interface CategoriesState {
 const initialState: CategoriesState = {
   categories: [
     {
-      category_id: `1`,
+      category_id: "1",
+      name: "category_one",
       main_image: { source: main_image, name: "01" },
       scroll_tasks: [
         {
@@ -76,7 +77,7 @@ const initialState: CategoriesState = {
       ],
       message_top: "ふと足元を見つめたら、",
       message_middle: "ありきたりなものじゃ伝わらない。",
-      message_below: "ありきたりなものじゃ伝わらない。",
+      message_bottom: "ありきたりなものじゃ伝わらない。",
       task_list_desplay: false,
     },
   ],
@@ -119,6 +120,19 @@ const reducer = produce(
         return state;
       case ActionType.UPDATE_CATEGORY:
         const { cellId, category } = action.payload;
+
+        if (cellId) {
+          const index = state.categories.findIndex(
+            (category) => category.category_id === cellId
+          );
+          state.categories[index] = category;
+        } else {
+          state.categories = [
+            ...state.categories,
+            { ...category, category_id: randomId().toString() },
+          ];
+        }
+
         const index = state.categories.findIndex(
           (category) => category.category_id === cellId
         );
