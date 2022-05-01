@@ -48,7 +48,7 @@ const initialState: CategoriesState = {
         },
         {
           id: 4,
-          category_id: "4",
+          category_id: "1",
           image_source: scroll_images_04,
           title: "task_04",
           description: "task_04の説明",
@@ -82,19 +82,42 @@ const initialState: CategoriesState = {
   ],
 };
 
+const randomId = () => {
+  return Math.floor(Math.random() * 100);
+};
+
 const reducer = produce(
   (state: CategoriesState = initialState, action: Action) => {
     switch (action.type) {
       case ActionType.LOGIN:
         return state;
       case ActionType.REGISTER_TASK:
-        state.categories[0].scroll_tasks.push(action.payload.task);
+        const { task } = action.payload;
+        const target_category = state.categories.find(
+          (category) => category.category_id === action.payload.cellId
+        );
+
+        if (!target_category) {
+          return state;
+        }
+
+        if (!task.id) {
+          target_category.scroll_tasks = [
+            ...target_category.scroll_tasks,
+            { ...task, id: randomId() },
+          ];
+        } else {
+          const index = target_category.scroll_tasks.findIndex(
+            (target_task) => target_task.id === task.id
+          );
+          target_category.scroll_tasks[index] = task;
+        }
+
         return state;
       case ActionType.REGISTER_CATEGORY:
         state.categories.push(action.payload.category);
         return state;
       case ActionType.UPDATE_CATEGORY:
-        // state.categories.push(action.payload.category);
         const { cellId, category } = action.payload;
         const index = state.categories.findIndex(
           (category) => category.category_id === cellId

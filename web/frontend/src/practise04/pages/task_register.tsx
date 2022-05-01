@@ -5,17 +5,20 @@ import DatePicker from "react-datepicker";
 
 import { imageTag } from "../types/types";
 import { useActions } from "../hooks/use-actions";
-import { category, task } from "../types/types";
+import { task } from "../types/types";
 import { useTypedSelector } from "../hooks/use-typed-selector";
+import { useNavigate } from "react-router-dom";
 
 import scroll_images_01 from "../assets/images/mv1_2.jpeg";
 import { useParams } from "react-router-dom";
+import * as COMMON_FUNC from "../utils/common_function";
 
 interface TaskRegisterProps {}
 
 const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
-  const { categories } = useTypedSelector((state) => state.categories);
+  const navigate = useNavigate();
 
+  const { categories } = useTypedSelector((state) => state.categories);
   const { id } = useParams();
   let task = null;
   if (id) {
@@ -38,7 +41,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
     task ? task.description : ""
   );
   const [category, setCategory] = useState<string>(
-    task ? task.category_id : ""
+    task ? task.category_id : categories[0].category_id
   );
 
   const [startDate, setStartDate] = useState(
@@ -48,11 +51,11 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
     task ? new Date(task.to_date) : new Date()
   );
 
-  const imageRef = useRef<HTMLInputElement | null>(null);
-
-  const [image_name, setImageName] = useState<string | null>("");
-  const [image, setImage] = useState<string>("");
-  const { registerTask } = useActions();
+  const [image_name, setImageName] = useState<string | null>();
+  const [image, setImage] = useState<string>(
+    task && task.image_source ? task.image_source : ""
+  );
+  const { registerTask, updateCategory } = useActions();
 
   const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target != null && e.target.files != null) {
@@ -63,15 +66,17 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
 
   const onClick = async () => {
     let test: task = {
-      id: Math.random(),
+      id: id ? Number(id) : null,
       category_id: category,
       image_source: image,
       title: title,
       description: description,
-      from_date: startDate.toString(),
-      to_date: limitDate.toString(),
+      from_date: COMMON_FUNC.formatDateYYYYMMDD(startDate),
+      to_date: COMMON_FUNC.formatDateYYYYMMDD(limitDate),
     };
-    console.log(test);
+
+    await registerTask(category, test);
+    navigate("/");
   };
 
   var categories_options = categories.map(function (category, index) {
@@ -166,7 +171,6 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
                       <label className="file-label">
                         <input
                           className="file-input"
-                          ref={imageRef}
                           type="file"
                           accept="image/*"
                           onChange={onFileInputChange}

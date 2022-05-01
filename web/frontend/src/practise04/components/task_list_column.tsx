@@ -11,7 +11,10 @@ const TaskListColumn: React.FC<TaskListColumnProps> = ({ task }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="column" onClick={() => navigate(`/task/${task.id}`)}>
+    <div
+      className="column is-one-third"
+      onClick={() => navigate(`/task/${task.id}`)}
+    >
       <div className="card is-clickable hover_color_primary">
         <div className="card-image p-3">
           <figure className="image is-4by3">
@@ -21,7 +24,7 @@ const TaskListColumn: React.FC<TaskListColumnProps> = ({ task }) => {
         <div className="card-content">
           <div className="media">
             <div className="media-left">
-              <span className="tag has-text-left">#{task.category_id}</span>
+              <span className="tag has-text-left">#{task.id}</span>
             </div>
             <div className="media-content">
               <p className="title is-4">{task.title}</p>

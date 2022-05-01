@@ -4,7 +4,7 @@ export type imageTag = {
 };
 
 export type task = {
-  id: number;
+  id: number | null;
   image_source?: string;
   title: string;
   description: string;
