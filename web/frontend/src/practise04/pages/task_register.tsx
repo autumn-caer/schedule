@@ -58,7 +58,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
   const [image, setImage] = useState<string>(
     task && task.image_source ? task.image_source : ""
   );
-  const { registerTask, updateCategory } = useActions();
+  const { registerTask, updateTask } = useActions();
 
   const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target != null && e.target.files != null) {
@@ -68,7 +68,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
   };
 
   const onClick = async () => {
-    let test: task = {
+    let task: task = {
       id: id ? id : null,
       category_id: category,
       image_source: image,
@@ -78,7 +78,12 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
       to_date: COMMON_FUNC.formatDateYYYYMMDD(limitDate),
     };
 
-    await registerTask(category, test);
+    if (id) {
+      await updateTask(task);
+    } else {
+      await registerTask(task);
+    }
+
     navigate("/");
   };
 

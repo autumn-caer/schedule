@@ -20,9 +20,8 @@ const CategoryList: React.FC<CategoryListProps> = () => {
       ...old_category,
       task_list_desplay: !old_category.task_list_desplay,
     };
-    if (updated_category && updated_category.category_id) {
-      updateCategory(updated_category.category_id, updated_category);
-    }
+
+    updateCategory(updated_category);
   };
 
   var categories_list = categories.map(function (category, index) {

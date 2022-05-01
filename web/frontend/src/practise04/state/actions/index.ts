@@ -62,7 +62,13 @@ export interface LOGIN {
 export interface RegisterTaskAction {
   type: ActionType.REGISTER_TASK;
   payload: {
-    cellId: string | null;
+    task: task;
+  };
+}
+
+export interface UpdateTaskAction {
+  type: ActionType.UPDATE_TASK;
+  payload: {
     task: task;
   };
 }
@@ -70,7 +76,6 @@ export interface RegisterTaskAction {
 export interface RegisterCategoryAction {
   type: ActionType.REGISTER_CATEGORY;
   payload: {
-    cellId: string | null;
     category: category;
   };
 }
@@ -78,7 +83,6 @@ export interface RegisterCategoryAction {
 export interface UpdateCategoryAction {
   type: ActionType.UPDATE_CATEGORY;
   payload: {
-    cellId: string | null;
     category: category;
   };
 }
@@ -92,5 +96,6 @@ export type Action =
   | BundleCompleteAction
   | LOGIN
   | RegisterTaskAction
+  | UpdateTaskAction
   | RegisterCategoryAction
   | UpdateCategoryAction;

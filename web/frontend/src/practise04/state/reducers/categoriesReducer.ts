@@ -94,51 +94,52 @@ const reducer = produce(
       case ActionType.LOGIN:
         return state;
       case ActionType.REGISTER_TASK:
-        const { task } = action.payload;
-        const target_category = state.categories.find(
-          (category) => category.category_id === action.payload.cellId
+        const register_task = action.payload.task;
+        const register_target_category = state.categories.find(
+          (category) => category.category_id === register_task.category_id
         );
 
-        if (!target_category) {
+        if (!register_target_category) {
           return state;
         }
 
-        if (!task.id) {
-          target_category.scroll_tasks = [
-            ...target_category.scroll_tasks,
-            { ...task, id: randomId() },
-          ];
-        } else {
-          const index = target_category.scroll_tasks.findIndex(
-            (target_task) => target_task.id === task.id
-          );
-          target_category.scroll_tasks[index] = task;
+        register_target_category.scroll_tasks = [
+          ...register_target_category.scroll_tasks,
+          { ...register_task, id: randomId() },
+        ];
+
+        return state;
+      case ActionType.UPDATE_TASK:
+        const update_task = action.payload.task;
+        const update_target_category = state.categories.find(
+          (category) => category.category_id === update_task.category_id
+        );
+
+        if (!update_target_category) {
+          return state;
         }
+
+        const index = update_target_category.scroll_tasks.findIndex(
+          (target_task) => target_task.id === update_task.id
+        );
+
+        update_target_category.scroll_tasks[index] = update_task;
 
         return state;
       case ActionType.REGISTER_CATEGORY:
-        state.categories.push(action.payload.category);
+        state.categories = [
+          ...state.categories,
+          { ...action.payload.category, category_id: randomId() },
+        ];
+
         return state;
       case ActionType.UPDATE_CATEGORY:
-        const { cellId, category } = action.payload;
-
-        if (cellId) {
-          const index = state.categories.findIndex(
-            (category) => category.category_id === cellId
-          );
-          state.categories[index] = category;
-        } else {
-          state.categories = [
-            ...state.categories,
-            { ...category, category_id: randomId() },
-          ];
-        }
-
-        const index = state.categories.findIndex(
-          (category) => category.category_id === cellId
+        const update_category = action.payload.category;
+        const update_index = state.categories.findIndex(
+          (category) => category.category_id === update_category.category_id
         );
+        state.categories[update_index] = update_category;
 
-        state.categories[index] = category;
         return state;
       default:
         return state;

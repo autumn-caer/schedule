@@ -9,6 +9,7 @@ import {
   Direction,
   LOGIN,
   RegisterTaskAction,
+  UpdateTaskAction,
   RegisterCategoryAction,
   UpdateCategoryAction,
 } from "../actions";
@@ -56,40 +57,39 @@ export const insertCellAfter = (id: string | null): InsertCellAfterAction => {
   };
 };
 
-export const registerTask = (
-  id: string | null,
-  task: task
-): RegisterTaskAction => {
+export const registerTask = (task: task): RegisterTaskAction => {
   return {
     type: ActionType.REGISTER_TASK,
     payload: {
-      cellId: id,
+      task: task,
+    },
+  };
+};
+
+export const updateTask = (task: task): UpdateTaskAction => {
+  return {
+    type: ActionType.UPDATE_TASK,
+    payload: {
       task: task,
     },
   };
 };
 
 export const registerCategory = (
-  id: string | null,
   category: category
 ): RegisterCategoryAction => {
   return {
     type: ActionType.REGISTER_CATEGORY,
     payload: {
-      cellId: id,
       category: category,
     },
   };
 };
 
-export const updateCategory = (
-  id: string | null,
-  category: category
-): UpdateCategoryAction => {
+export const updateCategory = (category: category): UpdateCategoryAction => {
   return {
     type: ActionType.UPDATE_CATEGORY,
     payload: {
-      cellId: id,
       category: category,
     },
   };

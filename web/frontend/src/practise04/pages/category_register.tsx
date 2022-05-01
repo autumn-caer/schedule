@@ -57,7 +57,7 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = ({}) => {
 
   const onClick = async () => {
     let new_category: category = {
-      category_id: id ? id : null,
+      category_id: "",
       name: name,
       main_image: { source: scroll_images_01, name: "01" },
       scroll_tasks: [],
@@ -67,7 +67,13 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = ({}) => {
       task_list_desplay: false,
     };
 
-    updateCategory(new_category.category_id, new_category);
+    if (id) {
+      new_category.category_id = id;
+      updateCategory(new_category);
+    } else {
+      registerCategory(new_category);
+    }
+
     navigate("/");
   };
 

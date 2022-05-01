@@ -14,7 +14,7 @@ export type task = {
 };
 
 export type category = {
-  category_id: string | null;
+  category_id: string;
   name: string;
   main_image: imageTag;
   scroll_tasks: task[];
