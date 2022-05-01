@@ -29,7 +29,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
       throw new Error("カテゴリーが存在しません。");
     }
 
-    task = target_category.scroll_tasks.find((task) => task.id === Number(id));
+    task = target_category.scroll_tasks.find((task) => task.id === id);
 
     if (!task) {
       throw new Error("カテゴリーが存在しません。");
@@ -39,8 +39,12 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
   const [description, setDescription] = useState<string>(
     task ? task.description : ""
   );
+
+  const inital_category_id = categories[0].category_id
+    ? categories[0].category_id
+    : "";
   const [category, setCategory] = useState<string>(
-    task ? task.category_id : ""
+    task ? task.category_id : inital_category_id
   );
 
   const [startDate, setStartDate] = useState(
@@ -65,7 +69,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
 
   const onClick = async () => {
     let test: task = {
-      id: id ? Number(id) : null,
+      id: id ? id : null,
       category_id: category,
       image_source: image,
       title: title,

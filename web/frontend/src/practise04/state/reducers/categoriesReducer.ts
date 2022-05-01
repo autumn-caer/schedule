@@ -21,7 +21,7 @@ const initialState: CategoriesState = {
       main_image: { source: main_image, name: "01" },
       scroll_tasks: [
         {
-          id: 1,
+          id: "1",
           category_id: "1",
           image_source: scroll_images_01,
           title: "task_01",
@@ -30,7 +30,7 @@ const initialState: CategoriesState = {
           to_date: "2022/01/31",
         },
         {
-          id: 2,
+          id: "2",
           category_id: "1",
           image_source: scroll_images_02,
           title: "task_02",
@@ -39,7 +39,7 @@ const initialState: CategoriesState = {
           to_date: "2022/02/08",
         },
         {
-          id: 3,
+          id: "3",
           category_id: "1",
           image_source: scroll_images_03,
           title: "task_03",
@@ -48,7 +48,7 @@ const initialState: CategoriesState = {
           to_date: "2022/03/31",
         },
         {
-          id: 4,
+          id: "4",
           category_id: "1",
           image_source: scroll_images_04,
           title: "task_04",
@@ -57,7 +57,7 @@ const initialState: CategoriesState = {
           to_date: "2022/04/30",
         },
         {
-          id: 5,
+          id: "5",
           category_id: "1",
           image_source: scroll_images_04,
           title: "task_05",
@@ -66,7 +66,7 @@ const initialState: CategoriesState = {
           to_date: "2022/05/31",
         },
         {
-          id: 6,
+          id: "6",
           category_id: "1",
           image_source: scroll_images_04,
           title: "task_06",
@@ -84,7 +84,8 @@ const initialState: CategoriesState = {
 };
 
 const randomId = () => {
-  return Math.floor(Math.random() * 100);
+  // return Math.floor(Math.random() * 100);
+  return Math.random().toString(36).substr(2, 5);
 };
 
 const reducer = produce(
@@ -129,7 +130,7 @@ const reducer = produce(
         } else {
           state.categories = [
             ...state.categories,
-            { ...category, category_id: randomId().toString() },
+            { ...category, category_id: randomId() },
           ];
         }
 
