@@ -33,7 +33,7 @@ const CategoryList: React.FC<CategoryListProps> = () => {
           <ul className="colors an anime ani_blur on category_column">
             <li className="color0">
               <div></div>
-              <h3 className="subtitle">{category.message_top}</h3>
+              <h3 className="subtitle">{category.name}</h3>
             </li>
             <li>
               <span>{category.message_middle}</span>

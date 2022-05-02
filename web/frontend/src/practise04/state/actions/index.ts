@@ -69,6 +69,7 @@ export interface RegisterTaskAction {
 export interface UpdateTaskAction {
   type: ActionType.UPDATE_TASK;
   payload: {
+    current_category_id: string;
     task: task;
   };
 }

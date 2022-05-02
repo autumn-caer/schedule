@@ -16,11 +16,11 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
   const navigate = useNavigate();
 
   const { categories } = useTypedSelector((state) => state.categories);
-  const { id } = useParams();
+  const { category_id, id } = useParams();
   let task = null;
   if (id) {
     const target_category = categories.find(
-      (category) => category.category_id === "1"
+      (category) => category.category_id === category_id
     );
 
     if (!target_category) {
@@ -28,10 +28,6 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
     }
 
     task = target_category.scroll_tasks.find((task) => task.id === id);
-
-    if (!task) {
-      throw new Error("カテゴリーが存在しません。");
-    }
   }
   const [title, setTilte] = useState<string>(task ? task.title : "");
   const [description, setDescription] = useState<string>(
@@ -70,7 +66,10 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
     };
 
     if (id) {
-      await updateTask(task);
+      if (!category_id) {
+        throw new Error("カテゴリーが存在しません。");
+      }
+      await updateTask(category_id, task);
     } else {
       await registerTask(task);
     }

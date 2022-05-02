@@ -66,10 +66,14 @@ export const registerTask = (task: task): RegisterTaskAction => {
   };
 };
 
-export const updateTask = (task: task): UpdateTaskAction => {
+export const updateTask = (
+  current_category_id: string,
+  task: task
+): UpdateTaskAction => {
   return {
     type: ActionType.UPDATE_TASK,
     payload: {
+      current_category_id: current_category_id,
       task: task,
     },
   };

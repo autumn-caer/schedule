@@ -111,6 +111,8 @@ const reducer = produce(
         return state;
       case ActionType.UPDATE_TASK:
         const update_task = action.payload.task;
+        const current_category_id = action.payload.current_category_id;
+
         const update_target_category = state.categories.find(
           (category) => category.category_id === update_task.category_id
         );
@@ -119,11 +121,34 @@ const reducer = produce(
           return state;
         }
 
-        const index = update_target_category.scroll_tasks.findIndex(
-          (target_task) => target_task.id === update_task.id
-        );
+        if (update_task.category_id === current_category_id) {
+          const index = update_target_category.scroll_tasks.findIndex(
+            (target_task) => target_task.id === update_task.id
+          );
+          update_target_category.scroll_tasks[index] = update_task;
+        } else {
+          const delete_task_belong_to_category_index =
+            state.categories.findIndex(
+              (category) => category.category_id === current_category_id
+            );
 
-        update_target_category.scroll_tasks[index] = update_task;
+          const delete_task_belong_to_category =
+            state.categories[delete_task_belong_to_category_index];
+
+          if (!delete_task_belong_to_category) {
+            return state;
+          }
+
+          state.categories[delete_task_belong_to_category_index].scroll_tasks =
+            delete_task_belong_to_category.scroll_tasks.filter(
+              (target_task) => target_task.id !== update_task.id
+            );
+
+          update_target_category.scroll_tasks = [
+            ...update_target_category.scroll_tasks,
+            update_task,
+          ];
+        }
 
         return state;
       case ActionType.REGISTER_CATEGORY:

@@ -13,7 +13,7 @@ const TaskListColumn: React.FC<TaskListColumnProps> = ({ task }) => {
   return (
     <div
       className="column is-one-third"
-      onClick={() => navigate(`/task/${task.id}`)}
+      onClick={() => navigate(`/task/${task.category_id}/${task.id}`)}
     >
       <div className="card is-clickable hover_color_primary">
         <div className="card-image p-3">
