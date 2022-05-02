@@ -1,23 +1,19 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import AutoScrollImages from "./auto_scroll_images";
 import HorizontalLoopImages from "./horizontal_loop_images";
 import DisplayFrameOne from "./display_frame_one";
-import DisplayFrameTwo from "./display_frame_two";
 import CategoryList from "./category_list";
-import TaskList from "./task_list";
 import TitleCard from "../atoms/title_card";
 import SmallHorizontalLoopImages from "./small_horizontal_loop_images";
-import ext_main from "../assets/images/product_img0.png";
 import ext_img2_0 from "../assets/images/ext_img2_0.png";
 import ext_img2_1 from "../assets/images/ext_img2_1.png";
 import ext_img2_2 from "../assets/images/ext_img2_2.png";
 import ext_img2_3 from "../assets/images/ext_img2_3.png";
 
 import Image from "../assets/images/mv0.jpeg";
-import { imageTag, RootStackParamList } from "../types/types";
+import { imageTag } from "../types/types";
 import { useTypedSelector } from "../hooks/use-typed-selector";
-import { useNavigate } from "react-router-dom";
-import { StackScreenProps } from "@react-navigation/stack";
+import * as COMMON_FUNC from "../utils/common_function";
 
 const TopDisplay: React.FC = () => {
   const ext_imaages: imageTag[] = [
@@ -28,11 +24,16 @@ const TopDisplay: React.FC = () => {
   ];
 
   const { name, login } = useTypedSelector((state) => state.login);
-  const { random_tasks } = useTypedSelector((state) => state.randomMediumSlide);
-  const { tasks } = useTypedSelector((state) => state.randomSmallSlide);
   const { categories } = useTypedSelector((state) => state.categories);
 
-  const navigate = useNavigate();
+  const all_tasks = categories
+    .map(function (category, _) {
+      return category.scroll_tasks;
+    })
+    .flat();
+
+  const random_tasks = COMMON_FUNC.arrayShuffle(all_tasks).slice(0, 6);
+  const tasks = COMMON_FUNC.arrayShuffle(all_tasks).slice(0, 4);
 
   var categories_list = categories.map(function (category) {
     return <DisplayFrameOne category={category} />;

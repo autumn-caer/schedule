@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../assets/css/components/small_horizontal_loop_images.css";
 import { task } from "../types/types";
+import { Link } from "react-router-dom";
 
 interface SmallHorizontalLoopImagesProps {
   scroll_tasks: task[];
@@ -12,10 +13,10 @@ const SmallHorizontalLoopImages: React.FC<SmallHorizontalLoopImagesProps> = ({
   var list = scroll_tasks.map(function (task) {
     return (
       <li>
-        <a href="#">
-          <img src={task.image_source} />
+        <Link to={`/task/${task.category_id}/${task.id}`}>
+          <img src={task.image_source} alt="img" />
           {task.title}
-        </a>
+        </Link>
       </li>
     );
   });
