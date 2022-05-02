@@ -11,3 +11,14 @@ export const formatDateYYYYMMDD = (date: Date) => {
   var day = ("00" + date.getDate()).slice(-2);
   return year + "/" + month + "/" + day;
 };
+
+export const onFileInputChange = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  setImageName: (value: React.SetStateAction<string | null>) => void,
+  setImage: (value: React.SetStateAction<string>) => void
+) => {
+  if (e.target != null && e.target.files != null) {
+    setImageName(e.target.files.item(0)!.name);
+    setImage(URL.createObjectURL(e.target.files.item(0)));
+  }
+};

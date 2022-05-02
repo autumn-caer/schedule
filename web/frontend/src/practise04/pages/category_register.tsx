@@ -4,9 +4,9 @@ import "../assets/css/components/task_register.css";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import { useActions } from "../hooks/use-actions";
 import { category } from "../types/types";
-import { store } from "../../practise04/state";
 import scroll_images_01 from "../assets/images/mv1_2.jpeg";
 import { useNavigate, useParams } from "react-router-dom";
+import * as COMMON_FUNC from "../utils/common_function";
 
 interface CategoryRegisterProps {}
 
@@ -20,7 +20,7 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = ({}) => {
   let target_category = null;
   if (id) {
     target_category = categories.find(
-      (category) => category.category_id === "1"
+      (category) => category.category_id === id
     );
 
     if (!target_category) {
@@ -41,25 +41,22 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = ({}) => {
     target_category ? target_category.message_bottom : ""
   );
 
-  const [image_name, setImageName] = useState<string | null>("");
-  const [image, setImage] = useState<string>("");
-
-  const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target != null) {
-      if (e.target.files != null) {
-        if (e.target.files != null) {
-          setImageName(e.target.files.item(0)!.name);
-          setImage(URL.createObjectURL(e.target.files.item(0)));
-        }
-      }
-    }
-  };
+  const [image_name, setImageName] = useState<string | null>(
+    target_category && target_category.main_image
+      ? target_category.main_image.name
+      : ""
+  );
+  const [image, setImage] = useState<string>(
+    target_category && target_category.main_image
+      ? target_category.main_image.source
+      : ""
+  );
 
   const onClick = async () => {
     let new_category: category = {
       category_id: "",
       name: name,
-      main_image: { source: scroll_images_01, name: "01" },
+      main_image: { source: image, name: image_name ? image_name : "" },
       scroll_tasks: [],
       message_top: message_top,
       message_middle: message_middle,
@@ -71,6 +68,8 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = ({}) => {
       new_category.category_id = id;
       updateCategory(new_category);
     } else {
+      console.log(new_category);
+
       registerCategory(new_category);
     }
 
@@ -153,7 +152,13 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = ({}) => {
                           className="file-input"
                           type="file"
                           accept="image/*"
-                          onChange={onFileInputChange}
+                          onChange={(e) =>
+                            COMMON_FUNC.onFileInputChange(
+                              e,
+                              setImageName,
+                              setImage
+                            )
+                          }
                           name="resume"
                         />
                         <span className="file-cta">

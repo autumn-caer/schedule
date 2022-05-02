@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import "../assets/css/components/display_frame_one.css";
 import "../assets/css/components/task_register.css";
 import DatePicker from "react-datepicker";
-
-import { imageTag } from "../types/types";
 import { useActions } from "../hooks/use-actions";
 import { task } from "../types/types";
 import { useTypedSelector } from "../hooks/use-typed-selector";
@@ -54,18 +52,11 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
     task ? new Date(task.to_date) : new Date()
   );
 
-  const [image_name, setImageName] = useState<string | null>();
+  const [image_name, setImageName] = useState<string | null>("");
   const [image, setImage] = useState<string>(
     task && task.image_source ? task.image_source : ""
   );
   const { registerTask, updateTask } = useActions();
-
-  const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target != null && e.target.files != null) {
-      setImageName(e.target.files.item(0)!.name);
-      setImage(URL.createObjectURL(e.target.files.item(0)));
-    }
-  };
 
   const onClick = async () => {
     let task: task = {
@@ -185,7 +176,13 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
                           className="file-input"
                           type="file"
                           accept="image/*"
-                          onChange={onFileInputChange}
+                          onChange={(e) =>
+                            COMMON_FUNC.onFileInputChange(
+                              e,
+                              setImageName,
+                              setImage
+                            )
+                          }
                           name="resume"
                         />
                         <span className="file-cta">
