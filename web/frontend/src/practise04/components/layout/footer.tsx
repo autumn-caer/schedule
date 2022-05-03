@@ -1,5 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
-import classNameNamees from "./Header.module.css";
+import React from "react";
 
 const Footer: React.FC = () => {
   return (
@@ -8,22 +7,22 @@ const Footer: React.FC = () => {
         <div className="container">
           <ul>
             <li className="is-active">
-              <a>Overview</a>
+              <a href="/">Overview</a>
             </li>
             <li>
-              <a>Modifiers</a>
+              <a href="/">Modifiers</a>
             </li>
             <li>
-              <a>Grid</a>
+              <a href="/">Grid</a>
             </li>
             <li>
-              <a>Elements</a>
+              <a href="/">Elements</a>
             </li>
             <li>
-              <a>Components</a>
+              <a href="/">Components</a>
             </li>
             <li>
-              <a>Layout</a>
+              <a href="/">Layout</a>
             </li>
           </ul>
         </div>

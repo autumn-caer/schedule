@@ -12,7 +12,7 @@ import * as COMMON_FUNC from "../utils/common_function";
 
 interface TaskRegisterProps {}
 
-const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
+const TaskRegister: React.FC<TaskRegisterProps> = () => {
   const navigate = useNavigate();
 
   const { categories } = useTypedSelector((state) => state.categories);
@@ -82,6 +82,8 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
       return (
         <option value={category.category_id}>{category.message_top}</option>
       );
+    } else {
+      return [];
     }
   });
 
@@ -200,7 +202,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = ({}) => {
                     <div className="task_image_wrapper">
                       <ul>
                         <li>
-                          <img src={image} />
+                          <img src={image} alt="img" />
                         </li>
                       </ul>
                     </div>

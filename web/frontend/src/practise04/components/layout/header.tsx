@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
-import classNameNamees from "./Header.module.css";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   const [is_nav_menu_show, set_is_nav_menu_show] = useState<boolean>(false);
@@ -13,9 +13,10 @@ const Header: React.FC = () => {
       <nav className="navbar">
         <div className="container">
           <div className="navbar-brand">
-            <a className="navbar-item">
+            <Link to={`/`}>
               <h2 className="subtitle">ZOMBIE KAKIZOME</h2>
-            </a>
+            </Link>
+
             <span
               className={`navbar-burger burger ${
                 is_nav_menu_show ? "is-active" : ""
@@ -33,13 +34,20 @@ const Header: React.FC = () => {
             className={`navbar-menu ${is_nav_menu_show ? "is-active" : ""}`}
           >
             <div className="navbar-end">
-              <a className="navbar-item is-active">Home</a>
-              <a className="navbar-item">Examples</a>
-              <a className="navbar-item">Documentation</a>
+              <Link to={`/`} className="navbar-item is-active">
+                Home
+              </Link>
+              <Link to={`/`} className="navbar-item">
+                Examples
+              </Link>
+              <Link to={`/`} className="navbar-item">
+                Documentation
+              </Link>
+
               <div className="navbar-item has-dropdown is-hoverable">
                 <div className="navbar-link">More</div>
                 <div id="moreDropdown" className="navbar-dropdown ">
-                  <a className="navbar-item " href="#">
+                  <Link to={`/`} className="navbar-item">
                     <div className="level is-mobile">
                       <div className="level-left">
                         <div className="level-item">
@@ -51,16 +59,16 @@ const Header: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               </div>
               <span className="navbar-item">
-                <a className="button is-primary is-inverted">
+                <Link to={`/`} className="button is-primary is-inverted">
                   <span className="icon">
                     <i className="fab fa-github"></i>
                   </span>
                   <span>Download</span>
-                </a>
+                </Link>
               </span>
             </div>
           </div>

@@ -4,7 +4,6 @@ import { imageTag } from "../types/types";
 import { useActions } from "../hooks/use-actions";
 
 import TaskList from "./task_list";
-import { category } from "../types/types";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +25,10 @@ const CategoryList: React.FC<CategoryListProps> = () => {
 
   var categories_list = categories.map(function (category, index) {
     return (
-      <div className="frame_color_light_purple has-text-left mb_one_percent category_column_wrapper hover_color_primary">
+      <div
+        key={category.category_id}
+        className="frame_color_light_purple has-text-left mb_one_percent category_column_wrapper hover_color_primary"
+      >
         <div onClick={() => show_task_list(index)}>
           {" "}
           　　

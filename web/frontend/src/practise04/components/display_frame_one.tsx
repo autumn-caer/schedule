@@ -16,7 +16,7 @@ const DisplayFrameOne: React.FC<DisplayFrameOneProps> = ({ category }) => {
           <div className="card">
             <div className="card-image">
               <figure className="image is-3by3">
-                <img src={category.main_image.source} alt="Image" />
+                <img src={category.main_image.source} alt="img" />
               </figure>
             </div>
           </div>

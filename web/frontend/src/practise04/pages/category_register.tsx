@@ -4,13 +4,12 @@ import "../assets/css/components/task_register.css";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import { useActions } from "../hooks/use-actions";
 import { category } from "../types/types";
-import scroll_images_01 from "../assets/images/mv1_2.jpeg";
 import { useNavigate, useParams } from "react-router-dom";
 import * as COMMON_FUNC from "../utils/common_function";
 
 interface CategoryRegisterProps {}
 
-const CategoryRegister: React.FC<CategoryRegisterProps> = ({}) => {
+const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
   const { categories } = useTypedSelector((state) => state.categories);
 
   const { id } = useParams();
@@ -177,7 +176,7 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = ({}) => {
                     <div className="task_image_wrapper">
                       <ul>
                         <li>
-                          <img src={image} />
+                          <img src={image} alt="img" />
                         </li>
                       </ul>
                     </div>

@@ -5,25 +5,12 @@ import DisplayFrameOne from "./display_frame_one";
 import CategoryList from "./category_list";
 import TitleCard from "../atoms/title_card";
 import SmallHorizontalLoopImages from "./small_horizontal_loop_images";
-import ext_img2_0 from "../assets/images/ext_img2_0.png";
-import ext_img2_1 from "../assets/images/ext_img2_1.png";
-import ext_img2_2 from "../assets/images/ext_img2_2.png";
-import ext_img2_3 from "../assets/images/ext_img2_3.png";
 
 import Image from "../assets/images/mv0.jpeg";
-import { imageTag } from "../types/types";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import * as COMMON_FUNC from "../utils/common_function";
 
 const TopDisplay: React.FC = () => {
-  const ext_imaages: imageTag[] = [
-    { source: ext_img2_0, name: "01" },
-    { source: ext_img2_1, name: "02" },
-    { source: ext_img2_2, name: "03" },
-    { source: ext_img2_3, name: "04" },
-  ];
-
-  const { name, login } = useTypedSelector((state) => state.login);
   const { categories } = useTypedSelector((state) => state.categories);
 
   const all_tasks = categories
@@ -36,7 +23,7 @@ const TopDisplay: React.FC = () => {
   const tasks = COMMON_FUNC.arrayShuffle(all_tasks).slice(0, 4);
 
   var categories_list = categories.map(function (category) {
-    return <DisplayFrameOne category={category} />;
+    return <DisplayFrameOne key={category.category_id} category={category} />;
   });
 
   return (
@@ -65,7 +52,7 @@ const TopDisplay: React.FC = () => {
             <div className="card">
               <div className="card-image">
                 <figure className="image is-3by3">
-                  <img src={Image} alt="Image" />
+                  <img src={Image} alt="img" />
                 </figure>
               </div>
             </div>

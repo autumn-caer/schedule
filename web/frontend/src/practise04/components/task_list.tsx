@@ -16,9 +16,9 @@ const TaskList: React.FC<TaskListProps> = ({ category }) => {
   var task_rows = COMMON_FUNC.sliceByNumber(category.scroll_tasks, 3);
   var task_list_column_rows = task_rows.map(function (task_array, index) {
     return (
-      <div className="columns">
+      <div className="columns" key={index}>
         {task_array.map(function (task, i) {
-          return <TaskListColumn task={task} />;
+          return <TaskListColumn key={task.id} task={task} />;
         })}
       </div>
     );

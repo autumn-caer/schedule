@@ -1,6 +1,6 @@
 import React from "react";
 import "../assets/css/components/display_frame_one.css";
-import { imageTag, task } from "../types/types";
+import { task } from "../types/types";
 import { useNavigate } from "react-router-dom";
 
 interface TaskListColumnProps {
@@ -18,7 +18,7 @@ const TaskListColumn: React.FC<TaskListColumnProps> = ({ task }) => {
       <div className="card is-clickable hover_color_primary">
         <div className="card-image p-3">
           <figure className="image is-4by3">
-            <img src={task.image_source} alt="image" />
+            <img src={task.image_source} alt="img" />
           </figure>
         </div>
         <div className="card-content">

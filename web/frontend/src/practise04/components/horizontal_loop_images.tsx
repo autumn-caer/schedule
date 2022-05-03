@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../assets/css/components/horizontal_loop_images.css";
 import { task } from "../types/types";
 import { Link } from "react-router-dom";
@@ -12,7 +12,7 @@ const HorizontalLoopImages: React.FC<HorizontalLoopImagesProps> = ({
 }) => {
   var list = tasks.map(function (task) {
     return (
-      <li>
+      <li key={task.id}>
         <Link to={`/task/${task.category_id}/${task.id}`}>
           <img src={task.image_source} alt="img" />
           {task.title}
