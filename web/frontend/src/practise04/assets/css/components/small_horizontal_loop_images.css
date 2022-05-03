@@ -36,6 +36,10 @@
     height: auto;
 }
 
+.slider_wrapper:hover ul {
+    animation-play-state: paused !important;
+}
+
 @keyframes slider {
     0% {
         transform: translateX(100%);
