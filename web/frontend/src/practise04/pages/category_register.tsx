@@ -6,6 +6,7 @@ import { useActions } from "../hooks/use-actions";
 import { category } from "../types/types";
 import { useNavigate, useParams } from "react-router-dom";
 import * as COMMON_FUNC from "../utils/common_function";
+import ConfirmModal from "../atoms/confirm_modal";
 
 interface CategoryRegisterProps {}
 
@@ -15,6 +16,11 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { registerCategory, updateCategory } = useActions();
+  const [show_modal, setShowModal] = useState<boolean>(false);
+
+  const showModal = () => {
+    setShowModal(true);
+  };
 
   let target_category = null;
   if (id) {
@@ -186,7 +192,7 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
                   <div className="column is-one-fifth">
                     <button
                       className="button is-medium is-responsive"
-                      onClick={onClick}
+                      onClick={showModal}
                     >
                       Submit
                     </button>
@@ -209,6 +215,11 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
           <div style={{ borderBottomColor: "rgb(150, 105, 73);" }}>next</div>
         </div>
       </div>
+      <ConfirmModal
+        show_modal={show_modal}
+        setShowModal={setShowModal}
+        confirmSubmit={onClick}
+      />
     </div>
   );
 };

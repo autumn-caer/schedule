@@ -12,7 +12,7 @@ const Header: React.FC = () => {
     <React.Fragment>
       <nav className="navbar">
         <div className="container">
-          <div className="navbar-brand">
+          <div className="navbar-brand" style={{ alignItems: "center" }}>
             <Link to={`/`}>
               <h2 className="subtitle">ZOMBIE KAKIZOME</h2>
             </Link>

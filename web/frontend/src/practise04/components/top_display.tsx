@@ -19,8 +19,8 @@ const TopDisplay: React.FC = () => {
     })
     .flat();
 
-  const random_tasks = COMMON_FUNC.arrayShuffle(all_tasks).slice(0, 6);
-  const tasks = COMMON_FUNC.arrayShuffle(all_tasks).slice(0, 4);
+  const random_medium_tasks = COMMON_FUNC.arrayShuffle(all_tasks).slice(0, 6);
+  const random_small_tasks = COMMON_FUNC.arrayShuffle(all_tasks).slice(0, 4);
 
   var categories_list = categories.map(function (category) {
     return <DisplayFrameOne key={category.category_id} category={category} />;
@@ -59,12 +59,11 @@ const TopDisplay: React.FC = () => {
           </div>
         </div>
       </section>
-      <h1 className="title">Title</h1>
-      <h2 className="subtitle">Subtitle</h2>
+      <TitleCard title={"Category一覧"} description={"description"} />
       <CategoryList />
       <section className="hero is-medium">
-        <HorizontalLoopImages tasks={random_tasks} />
-        <SmallHorizontalLoopImages scroll_tasks={tasks} />
+        <HorizontalLoopImages tasks={random_medium_tasks} />
+        <SmallHorizontalLoopImages scroll_tasks={random_small_tasks} />
       </section>
       <TitleCard title={"Category_1"} description={"description"} />
       {categories_list}

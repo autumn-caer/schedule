@@ -9,14 +9,21 @@ import { useNavigate } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
 import * as COMMON_FUNC from "../utils/common_function";
+import ConfirmModal from "../atoms/confirm_modal";
 
 interface TaskRegisterProps {}
 
 const TaskRegister: React.FC<TaskRegisterProps> = () => {
   const navigate = useNavigate();
+  const [show_modal, setShowModal] = useState<boolean>(false);
 
   const { categories } = useTypedSelector((state) => state.categories);
   const { category_id, id } = useParams();
+
+  const showModal = () => {
+    setShowModal(true);
+  };
+
   let task = null;
   if (id) {
     const target_category = categories.find(
@@ -212,7 +219,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
                   <div className="column is-one-fifth">
                     <button
                       className="button is-medium is-responsive"
-                      onClick={onClick}
+                      onClick={showModal}
                     >
                       Submit
                     </button>
@@ -235,6 +242,11 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
           <div style={{ borderBottomColor: "rgb(150, 105, 73);" }}>next</div>
         </div>
       </div>
+      <ConfirmModal
+        show_modal={show_modal}
+        setShowModal={setShowModal}
+        confirmSubmit={onClick}
+      />
     </div>
   );
 };
