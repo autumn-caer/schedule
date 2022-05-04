@@ -1,10 +1,10 @@
 import React from "react";
-import AutoScrollImages from "./auto_scroll_images";
-import HorizontalLoopImages from "./horizontal_loop_images";
-import DisplayFrameOne from "./display_frame_one";
-import CategoryList from "./category_list";
+import AutoScrollImages from "../components/auto_scroll_images";
+import HorizontalLoopImages from "../components/horizontal_loop_images";
+import DisplayFrameOne from "../components/display_frame_one";
+import CategoryList from "../components/category_list";
 import TitleCard from "../atoms/title_card";
-import SmallHorizontalLoopImages from "./small_horizontal_loop_images";
+import SmallHorizontalLoopImages from "../components/small_horizontal_loop_images";
 
 import Image from "../assets/images/mv0.jpeg";
 import { useTypedSelector } from "../hooks/use-typed-selector";

@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./practise04/state";
 import Header from "./practise04/components/layout/header";
 import Footer from "./practise04/components/layout/footer";
-import TopDisplay from "./practise04/components/top_display";
+import TopDisplay from "./practise04/pages/top_display";
 import TaskRegister from "./practise04/pages/task_register";
 import CategoryRegister from "./practise04/pages/category_register";
 import { Routes, Route, useLocation } from "react-router-dom";
