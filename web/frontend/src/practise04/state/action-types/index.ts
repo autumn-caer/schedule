@@ -10,4 +10,5 @@ export enum ActionType {
   UPDATE_TASK = "update_task",
   REGISTER_CATEGORY = "register_category",
   UPDATE_CATEGORY = "update_category",
+  CLEAR_CATEGORIES_AND_TASKS = "clear_categories_and_tasks",
 }

@@ -12,6 +12,7 @@ import {
   UpdateTaskAction,
   RegisterCategoryAction,
   UpdateCategoryAction,
+  ClearCategoriesAndTasksAction,
 } from "../actions";
 import { task, category } from "../../types/types";
 
@@ -96,6 +97,13 @@ export const updateCategory = (category: category): UpdateCategoryAction => {
     payload: {
       category: category,
     },
+  };
+};
+
+export const clearCategoriesAndTasks = (): ClearCategoriesAndTasksAction => {
+  return {
+    type: ActionType.CLEAR_CATEGORIES_AND_TASKS,
+    payload: {},
   };
 };
 

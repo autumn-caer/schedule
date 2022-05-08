@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AutoScrollImages from "../components/auto_scroll_images";
 import HorizontalLoopImages from "../components/horizontal_loop_images";
 import DisplayFrameOne from "../components/display_frame_one";
 import CategoryList from "../components/category_list";
 import TitleCard from "../atoms/title_card";
 import SmallHorizontalLoopImages from "../components/small_horizontal_loop_images";
+import { useActions } from "../hooks/use-actions";
 
 import Image from "../assets/images/mv0.jpeg";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import * as COMMON_FUNC from "../utils/common_function";
+import { task } from "../types/types";
+
+// import { auth } from "./firebase";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  getDoc,
+  doc,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+import { CategoryConverter, TaskConverter } from "../converters/converters";
 
 const TopDisplay: React.FC = () => {
   const { categories } = useTypedSelector((state) => state.categories);
@@ -25,6 +40,34 @@ const TopDisplay: React.FC = () => {
   var categories_list = categories.map(function (category) {
     return <DisplayFrameOne key={category.category_id} category={category} />;
   });
+
+  const { registerCategory, clearCategoriesAndTasks } = useActions();
+
+  useEffect(() => {
+    const fetch_data = async () => {
+      clearCategoriesAndTasks();
+      const categories_snapshot = await getDocs(
+        collection(db, "category").withConverter(CategoryConverter)
+      );
+
+      categories_snapshot.forEach(async (doc) => {
+        const q = query(
+          collection(db, "task"),
+          where("category_id", "==", doc.data().category_id)
+        ).withConverter(TaskConverter);
+        const tasks_snapshot = await getDocs(q);
+
+        registerCategory({
+          ...doc.data(),
+          scroll_tasks: tasks_snapshot.docs.map((doc) => {
+            return doc.data();
+          }),
+        });
+      });
+    };
+
+    fetch_data();
+  }, []);
 
   return (
     <div className="container has-text-centered">

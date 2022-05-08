@@ -88,6 +88,11 @@ export interface UpdateCategoryAction {
   };
 }
 
+export interface ClearCategoriesAndTasksAction {
+  type: ActionType.CLEAR_CATEGORIES_AND_TASKS;
+  payload: {};
+}
+
 export type Action =
   | MoveCellAction
   | DeleteCellAction
@@ -99,4 +104,5 @@ export type Action =
   | RegisterTaskAction
   | UpdateTaskAction
   | RegisterCategoryAction
-  | UpdateCategoryAction;
+  | UpdateCategoryAction
+  | ClearCategoriesAndTasksAction;

@@ -1,8 +1,10 @@
-version: '3'
+version: "3"
 
 services:
   react_app:
     build: ./docker/react
+    env_file:
+      - ./web/.env.local
     environment:
       - NODE_ENV=development
     command: sh -c 'cd frontend && yarn start'
@@ -15,9 +17,9 @@ services:
   nginx:
     image: nginx
     ports:
-        - 8080:80
+      - 8080:80
     volumes:
-        - ./web/frontend/build:/var/www
-        - ./docker/nginx/:/etc/nginx/conf.d/
+      - ./web/frontend/build:/var/www
+      - ./docker/nginx/:/etc/nginx/conf.d/
     depends_on:
-        - react_app
+      - react_app

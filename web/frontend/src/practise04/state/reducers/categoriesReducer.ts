@@ -166,6 +166,10 @@ const reducer = produce(
         state.categories[update_index] = update_category;
 
         return state;
+      case ActionType.CLEAR_CATEGORIES_AND_TASKS:
+        state = initialState;
+
+        return state;
       default:
         return state;
     }

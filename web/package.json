@@ -22,6 +22,7 @@
     "bulmaswatch": "^0.8.1",
     "esbuild-loader": "^2.16.0",
     "esbuild-wasm": "0.8.27",
+    "firebase": "^9.7.0",
     "immer": "^9.0.7",
     "jscodeshift": "0.11.0",
     "localforage": "^1.10.0",
