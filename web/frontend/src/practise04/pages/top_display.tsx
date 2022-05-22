@@ -12,7 +12,6 @@ import { useTypedSelector } from "../hooks/use-typed-selector";
 import * as COMMON_FUNC from "../utils/common_function";
 import { task } from "../types/types";
 
-// import { auth } from "./firebase";
 import {
   collection,
   getDocs,
@@ -67,6 +66,7 @@ const TopDisplay: React.FC = () => {
     };
 
     fetch_data();
+    console.log(categories);
   }, []);
 
   return (
@@ -78,7 +78,7 @@ const TopDisplay: React.FC = () => {
               <div className="tile">
                 <div className="tile is-parent is-vertical">
                   <article className="tile is-child">
-                    <p className="subtitle">ふと足元を見つめたら、</p>
+                    <p className="subtitle">ffふと足元を見つめたら、</p>
                     <p className="subtitle">大切なものがたくさんあった</p>
                   </article>
                   <article className="tile is-child">

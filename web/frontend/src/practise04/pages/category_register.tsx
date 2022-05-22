@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import "../assets/css/components/display_frame_one.css";
 import "../assets/css/components/task_register.css";
 import { useTypedSelector } from "../hooks/use-typed-selector";
@@ -6,8 +6,23 @@ import { useActions } from "../hooks/use-actions";
 import { category } from "../types/types";
 import { useNavigate, useParams } from "react-router-dom";
 import * as COMMON_FUNC from "../utils/common_function";
+import * as FIREBASE_FUNC from "../utils/firebase_function";
+
 import ConfirmModal from "../atoms/confirm_modal";
 import { useForm, SubmitHandler } from "react-hook-form";
+import scroll_images_04 from "../assets/images/mv0_1.jpeg";
+
+import {
+  collection,
+  setDoc,
+  doc,
+  getDoc,
+  DocumentData,
+  DocumentReference,
+} from "firebase/firestore";
+
+import { db } from "../../firebase";
+// import RNFetchBlob from "rn-fetch-blob";
 
 interface CategoryRegisterProps {}
 
@@ -40,11 +55,8 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
       ? target_category.main_image.name
       : ""
   );
-  const [image, setImage] = useState<string>(
-    target_category && target_category.main_image
-      ? target_category.main_image.source
-      : ""
-  );
+
+  const [image, setImage] = useState<string>("");
 
   const defaultValues = useMemo(() => {
     return {
@@ -78,15 +90,44 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
       message_bottom: watch("message_bottom"),
       task_list_desplay: false,
     };
+
+    let updateRef: DocumentReference<DocumentData> | null = null;
     if (id) {
-      new_category.category_id = id;
-      updateCategory(new_category);
+      updateRef = doc(db, "category", id);
     } else {
-      console.log(new_category);
-      registerCategory(new_category);
+      updateRef = doc(collection(db, "category"));
     }
+
+    if (updateRef) {
+      await setDoc(updateRef, new_category);
+      if (new_category.main_image.source) {
+        await FIREBASE_FUNC.uploadImage(
+          new_category.main_image.source,
+          updateRef.id
+        );
+      } else {
+        await FIREBASE_FUNC.deleteImage(updateRef.id);
+      }
+    }
+
     navigate("/");
   };
+
+  useEffect(() => {
+    const fetch_data = async () => {
+      if (id) {
+        await FIREBASE_FUNC.downloadImage(id)
+          .then((url) => {
+            setImage(url);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    };
+
+    fetch_data();
+  }, []);
 
   return (
     <div className="position_relative">

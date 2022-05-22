@@ -6,9 +6,7 @@ export const CategoryConverter: FirestoreDataConverter<category> = {
   toFirestore: (category: category) => {
     return {
       __type: "category",
-      category_id: category.category_id,
       name: category.name,
-      main_image: category.main_image,
       message_top: category.message_top,
       message_middle: category.message_middle,
       message_bottom: category.message_bottom,

@@ -105,7 +105,7 @@ const reducer = produce(
 
         register_target_category.scroll_tasks = [
           ...register_target_category.scroll_tasks,
-          { ...register_task, id: randomId() },
+          { ...register_task },
         ];
 
         return state;
@@ -154,7 +154,7 @@ const reducer = produce(
       case ActionType.REGISTER_CATEGORY:
         state.categories = [
           ...state.categories,
-          { ...action.payload.category, category_id: randomId() },
+          { ...action.payload.category },
         ];
 
         return state;
