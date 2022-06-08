@@ -1,26 +1,39 @@
-import { storage } from "../../firebase";
+import { db, storage } from "../../firebase";
 import {
   ref,
   uploadBytes,
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+import {
+  collection,
+  setDoc,
+  doc,
+  DocumentData,
+  DocumentReference,
+} from "firebase/firestore";
+import { task } from "../types/types";
+import { CategoryConverter, TaskConverter } from "../converters/converters";
 
-export const uploadImage = async (imageUri: string, path: string) => {
-  const storageRef = ref(storage, `/images/${path}`);
+export const uploadImage = async (
+  imageUri: string,
+  folder: string,
+  path: string
+) => {
+  const storageRef = ref(storage, `${folder}/${path}`);
   const response = await fetch(imageUri);
   const blob = await response.blob();
 
   await uploadBytes(storageRef, blob).then((snapshot) => {});
 };
 
-export const downloadImage = async (path: string) => {
-  const storageRef = ref(storage, `/images/${path}`);
+export const downloadImage = async (folder: string, path: string) => {
+  const storageRef = ref(storage, `${folder}/${path}`);
   return await getDownloadURL(storageRef);
 };
 
-export const deleteImage = async (path: string) => {
-  const storageRef = ref(storage, `/images/${path}`);
+export const deleteImage = async (folder: string, path: string) => {
+  const storageRef = ref(storage, `${folder}/${path}`);
   deleteObject(storageRef)
     .then(() => {
       // File deleted successfully

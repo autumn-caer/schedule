@@ -12,15 +12,7 @@ import { useTypedSelector } from "../hooks/use-typed-selector";
 import * as COMMON_FUNC from "../utils/common_function";
 import { task } from "../types/types";
 
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  getDoc,
-  doc,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, doc, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import { CategoryConverter, TaskConverter } from "../converters/converters";
 
@@ -49,24 +41,30 @@ const TopDisplay: React.FC = () => {
         collection(db, "category").withConverter(CategoryConverter)
       );
 
-      categories_snapshot.forEach(async (doc) => {
-        const q = query(
-          collection(db, "task"),
-          where("category_id", "==", doc.data().category_id)
-        ).withConverter(TaskConverter);
-        const tasks_snapshot = await getDocs(q);
+      categories_snapshot.forEach(async (category_snapshot) => {
+        const category_doc_ref = doc(
+          db,
+          "category",
+          category_snapshot.data().category_id
+        );
 
+        const q = query(
+          collection(db, "task").withConverter(TaskConverter),
+          where("category_id", "==", category_doc_ref)
+        );
+
+        const tasks_snapshots = await getDocs(q);
         registerCategory({
-          ...doc.data(),
-          scroll_tasks: tasks_snapshot.docs.map((doc) => {
-            return doc.data();
+          ...category_snapshot.data(),
+          scroll_tasks: tasks_snapshots.docs.map((task_snapshot) => {
+            return task_snapshot.data();
           }),
         });
       });
     };
 
     fetch_data();
-    console.log(categories);
+    // console.log(categories);
   }, []);
 
   return (
@@ -78,7 +76,7 @@ const TopDisplay: React.FC = () => {
               <div className="tile">
                 <div className="tile is-parent is-vertical">
                   <article className="tile is-child">
-                    <p className="subtitle">ffふと足元を見つめたら、</p>
+                    <p className="subtitle">ふと足元を見つめたら、</p>
                     <p className="subtitle">大切なものがたくさんあった</p>
                   </article>
                   <article className="tile is-child">

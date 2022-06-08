@@ -39,7 +39,7 @@ const TaskList: React.FC<TaskListProps> = ({ category }) => {
         <div className="column">
           <button
             className="button is-link is-light"
-            onClick={() => navigate("/task")}
+            onClick={() => navigate(`/task/${category.category_id}`)}
           >
             タスク新規追加
           </button>

@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import "../assets/css/components/display_frame_one.css";
 import SmallHorizontalLoopImages from "./small_horizontal_loop_images";
 import { category } from "../types/types";
-
+import { CATEGORY_IMAGE_FOLDER } from "../consts/consts";
+import * as FIREBASE_FUNC from "../utils/firebase_function";
 interface DisplayFrameOneProps {
   category: category;
 }
 
 const DisplayFrameOne: React.FC<DisplayFrameOneProps> = ({ category }) => {
+  const [image, setImage] = useState<string>("");
+
+  useEffect(() => {
+    const fetch_data = async () => {
+      await FIREBASE_FUNC.downloadImage(
+        CATEGORY_IMAGE_FOLDER,
+        category.category_id
+      )
+        .then((url) => {
+          setImage(url);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetch_data();
+  }, []);
+
   return (
     <div className="position_relative mb_20">
       <div className="frame_color_light_blue"></div>
@@ -16,7 +35,7 @@ const DisplayFrameOne: React.FC<DisplayFrameOneProps> = ({ category }) => {
           <div className="card">
             <div className="card-image">
               <figure className="image is-3by3">
-                <img src={category.main_image.source} alt="img" />
+                <img src={image} alt="img" />
               </figure>
             </div>
           </div>

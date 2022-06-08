@@ -1,3 +1,5 @@
+import { DocumentReference, DocumentData } from "firebase/firestore";
+
 export type imageTag = {
   source: string;
   name: string;

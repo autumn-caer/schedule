@@ -3,7 +3,7 @@ import "../assets/css/components/display_frame_one.css";
 import "../assets/css/components/task_register.css";
 
 import { useActions } from "../hooks/use-actions";
-import { task } from "../types/types";
+import { task, category } from "../types/types";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,19 @@ import * as COMMON_FUNC from "../utils/common_function";
 import ConfirmModal from "../atoms/confirm_modal";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { DatePicker } from "../atoms/date_picker";
+import * as FIREBASE_FUNC from "../utils/firebase_function";
+import { CategoryConverter, TaskConverter } from "../converters/converters";
+import { TASK_IMAGE_FOLDER } from "../consts/consts";
+
+import {
+  collection,
+  setDoc,
+  doc,
+  DocumentData,
+  DocumentReference,
+} from "firebase/firestore";
+
+import { db } from "../../firebase";
 
 interface TaskRegisterProps {}
 
@@ -31,8 +44,9 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
   const { category_id, id } = useParams();
 
   let task: task | null = null;
-  if (id) {
-    const target_category = categories.find(
+  let target_category: category | null | undefined = null;
+  if (category_id) {
+    target_category = categories.find(
       (category) => category.category_id === category_id
     );
 
@@ -40,12 +54,14 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
       throw new Error("カテゴリーが存在しません。");
     }
 
-    let tmp = target_category.scroll_tasks.find((task) => task.id === id);
-    if (!tmp) {
-      throw new Error("タスクが存在しません。");
+    if (id) {
+      let tmp = target_category.scroll_tasks.find((task) => task.id === id);
+      if (!tmp) {
+        throw new Error("タスクが存在しません。");
+      }
+      console.log(tmp);
+      task = tmp;
     }
-
-    task = tmp;
   }
 
   const [image_name, setImageName] = useState<string | null>("");
@@ -56,7 +72,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
   const defaultValues = useMemo(() => {
     return {
       title: task?.title,
-      category: task?.category_id,
+      category: target_category?.category_id,
       from_date: task ? new Date(task.from_date) : new Date(),
       to_date: task ? new Date(task.to_date) : new Date(),
     };
@@ -86,13 +102,24 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
       to_date: COMMON_FUNC.formatDateYYYYMMDD(watch("to_date")),
     };
 
+    if (id && !category_id) {
+      throw new Error("カテゴリーが存在しません。");
+    }
+
+    let updateRef: DocumentReference<DocumentData> | null = null;
     if (id) {
-      if (!category_id) {
-        throw new Error("カテゴリーが存在しません。");
-      }
-      await updateTask(category_id, task);
+      updateRef = doc(db, "task", id).withConverter(TaskConverter);
     } else {
-      await registerTask(task);
+      updateRef = doc(collection(db, "task")).withConverter(TaskConverter);
+    }
+
+    if (updateRef) {
+      await setDoc(updateRef, task);
+      if (image) {
+        await FIREBASE_FUNC.uploadImage(image, TASK_IMAGE_FOLDER, updateRef.id);
+      } else {
+        await FIREBASE_FUNC.deleteImage(TASK_IMAGE_FOLDER, updateRef.id);
+      }
     }
 
     navigate("/");

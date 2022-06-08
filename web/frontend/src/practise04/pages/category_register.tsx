@@ -11,12 +11,11 @@ import * as FIREBASE_FUNC from "../utils/firebase_function";
 import ConfirmModal from "../atoms/confirm_modal";
 import { useForm, SubmitHandler } from "react-hook-form";
 import scroll_images_04 from "../assets/images/mv0_1.jpeg";
-
+import { CATEGORY_IMAGE_FOLDER } from "../consts/consts";
 import {
   collection,
   setDoc,
   doc,
-  getDoc,
   DocumentData,
   DocumentReference,
 } from "firebase/firestore";
@@ -83,7 +82,7 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
     let new_category: category = {
       category_id: "",
       name: watch("name"),
-      main_image: { source: image, name: image_name ? image_name : "" },
+      main_image: { source: "", name: image_name ? image_name : "" },
       scroll_tasks: [],
       message_top: watch("message_top"),
       message_middle: watch("message_middle"),
@@ -100,13 +99,14 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
 
     if (updateRef) {
       await setDoc(updateRef, new_category);
-      if (new_category.main_image.source) {
+      if (image) {
         await FIREBASE_FUNC.uploadImage(
-          new_category.main_image.source,
+          image,
+          CATEGORY_IMAGE_FOLDER,
           updateRef.id
         );
       } else {
-        await FIREBASE_FUNC.deleteImage(updateRef.id);
+        await FIREBASE_FUNC.deleteImage(CATEGORY_IMAGE_FOLDER, updateRef.id);
       }
     }
 
@@ -115,8 +115,11 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
 
   useEffect(() => {
     const fetch_data = async () => {
-      if (id) {
-        await FIREBASE_FUNC.downloadImage(id)
+      if (id && target_category) {
+        if (!target_category.main_image.name) {
+          return;
+        }
+        await FIREBASE_FUNC.downloadImage(CATEGORY_IMAGE_FOLDER, id)
           .then((url) => {
             setImage(url);
           })
@@ -230,6 +233,7 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
                             </span>
                             <span className="file-label">Choose a file…</span>
                           </span>
+
                           <span className="file-name">{image_name}</span>
                         </label>
                       </div>
@@ -237,11 +241,30 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
                   </div>
                   <div className="field">
                     <div className="control">
+                      <label className="file-label">
+                        <span
+                          className="file-cta"
+                          onClick={() =>
+                            COMMON_FUNC.deleteImage(setImageName, setImage)
+                          }
+                        >
+                          <span className="file-icon">
+                            <i className="fas fa-upload"></i>
+                          </span>
+                          <span className="file-label">キャンセル</span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="control">
                       <div className="task_image_wrapper">
                         <ul>
-                          <li>
-                            <img src={image} alt="img" />
-                          </li>
+                          {image && (
+                            <li>
+                              <img src={image} alt="img" />
+                            </li>
+                          )}
                         </ul>
                       </div>
                     </div>

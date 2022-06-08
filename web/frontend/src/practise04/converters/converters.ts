@@ -1,6 +1,10 @@
 import { category, task } from "../types/types";
 import { FirestoreDataConverter } from "firebase/firestore";
 import * as COMMON_FUNC from "../utils/common_function";
+import { db } from "../../firebase";
+import { doc } from "firebase/firestore";
+import * as FIREBASE_FUNC from "../utils/firebase_function";
+import { CATEGORY_IMAGE_FOLDER } from "../consts/consts";
 
 export const CategoryConverter: FirestoreDataConverter<category> = {
   toFirestore: (category: category) => {
@@ -14,28 +18,29 @@ export const CategoryConverter: FirestoreDataConverter<category> = {
   },
   fromFirestore: (sn) => {
     const data = sn.data();
-
-    const category = {
+    var rtn_category = {
       category_id: sn.id,
       main_image: { source: "", name: "" },
       scroll_tasks: [] as Array<task>,
       ...data,
     } as category;
-    category.category_id = sn.id;
-    return category;
+    rtn_category.category_id = sn.id;
+
+    return rtn_category;
   },
 };
 
 export const TaskConverter: FirestoreDataConverter<task> = {
   toFirestore: (task: task) => {
+    const category_doc_ref = doc(db, "category", task.category_id);
     return {
       __type: "task",
       image_source: task.image_source,
       title: task.title,
       description: task.description,
-      from_date: task.from_date,
-      to_date: task.to_date,
-      category_id: task.category_id,
+      from_date: task.from_date ? new Date(task.from_date) : null,
+      to_date: task.to_date ? new Date(task.to_date) : null,
+      category_id: category_doc_ref,
     };
   },
   fromFirestore: (sn) => {
