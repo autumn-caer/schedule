@@ -14,7 +14,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { DatePicker } from "../atoms/date_picker";
 import * as FIREBASE_FUNC from "../utils/firebase_function";
 import { CategoryConverter, TaskConverter } from "../converters/converters";
-import { TASK_IMAGE_FOLDER } from "../consts/consts";
+import { TASK_IMAGE_FOLDER, STATUS_LIST } from "../consts/consts";
 
 import {
   collection,
@@ -34,6 +34,7 @@ type Inputs = {
   category: string;
   from_date: Date;
   to_date: Date;
+  status: string;
 };
 
 const TaskRegister: React.FC<TaskRegisterProps> = () => {
@@ -75,6 +76,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
       category: target_category?.category_id,
       from_date: task ? new Date(task.from_date) : new Date(),
       to_date: task ? new Date(task.to_date) : new Date(),
+      status: task?.status,
     };
   }, [task]);
 
@@ -100,6 +102,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
       description: watch("description"),
       from_date: COMMON_FUNC.formatDateYYYYMMDD(watch("from_date")),
       to_date: COMMON_FUNC.formatDateYYYYMMDD(watch("to_date")),
+      status: watch("status"),
     };
 
     if (id && !category_id) {
@@ -137,6 +140,14 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
     }
   });
 
+  var status_options = STATUS_LIST.map(function (status, index) {
+    return (
+      <option key={status.id} value={status.id}>
+        {status.name}
+      </option>
+    );
+  });
+
   return (
     <div className="position_relative">
       <div className="columns">
@@ -172,6 +183,16 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
                       {errors.title && (
                         <p className="help is-danger">This field is required</p>
                       )}
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="control">
+                      <label className="label">Status</label>
+                      <div className="select is-rounded">
+                        <select {...register("status")}>
+                          {status_options}
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <div className="field">

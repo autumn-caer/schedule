@@ -31,7 +31,7 @@ export const CategoryConverter: FirestoreDataConverter<category> = {
 };
 
 export const TaskConverter: FirestoreDataConverter<task> = {
-  toFirestore: (task: task) => {
+  toFirestore: async (task: task) => {
     const category_doc_ref = doc(db, "category", task.category_id);
     return {
       __type: "task",
@@ -41,6 +41,7 @@ export const TaskConverter: FirestoreDataConverter<task> = {
       from_date: task.from_date ? new Date(task.from_date) : null,
       to_date: task.to_date ? new Date(task.to_date) : null,
       category_id: category_doc_ref,
+      status: task.status,
     };
   },
   fromFirestore: (sn) => {

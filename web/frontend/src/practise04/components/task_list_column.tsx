@@ -23,10 +23,10 @@ const TaskListColumn: React.FC<TaskListColumnProps> = ({ task }) => {
         </div>
         <div className="card-content">
           <div className="media">
-            <div className="media-left">
-              <span className="tag has-text-left">#{task.id}</span>
-            </div>
             <div className="media-content">
+              <p className="subtitle">
+                <span className="tag has-text-left">#{task.id}</span>
+              </p>
               <p className="title is-4">{task.title}</p>
               <p className="subtitle is-6">{task.description}</p>
               <p className="tag is-primary">

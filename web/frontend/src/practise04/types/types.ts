@@ -13,6 +13,7 @@ export type task = {
   from_date: string;
   to_date: string;
   category_id: string;
+  status: string;
 };
 
 export type category = {

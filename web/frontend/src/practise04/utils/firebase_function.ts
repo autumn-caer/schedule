@@ -11,6 +11,7 @@ import {
   doc,
   DocumentData,
   DocumentReference,
+  runTransaction,
 } from "firebase/firestore";
 import { task } from "../types/types";
 import { CategoryConverter, TaskConverter } from "../converters/converters";
@@ -41,4 +42,20 @@ export const deleteImage = async (folder: string, path: string) => {
     .catch((error) => {
       // Uh-oh, an error occurred!
     });
+};
+
+export const get_image_url = async (folder: string, id: string | null) => {
+  if (!id) {
+    return "";
+  }
+  var image_url = "";
+  await downloadImage(folder, id)
+    .then((url) => {
+      image_url = url;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return image_url;
 };

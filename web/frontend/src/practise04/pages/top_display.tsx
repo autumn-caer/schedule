@@ -10,11 +10,12 @@ import { useActions } from "../hooks/use-actions";
 import Image from "../assets/images/mv0.jpeg";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import * as COMMON_FUNC from "../utils/common_function";
-import { task } from "../types/types";
 
 import { collection, getDocs, doc, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import { CategoryConverter, TaskConverter } from "../converters/converters";
+import * as FIREBASE_FUNC from "../utils/firebase_function";
+import { TASK_IMAGE_FOLDER } from "../consts/consts";
 
 const TopDisplay: React.FC = () => {
   const { categories } = useTypedSelector((state) => state.categories);
@@ -53,12 +54,23 @@ const TopDisplay: React.FC = () => {
           where("category_id", "==", category_doc_ref)
         );
 
+        //配下のタスクリストを作成する、画像がある場合はそれもfetchする
         const tasks_snapshots = await getDocs(q);
+        const scroll_tasks = await Promise.all(
+          tasks_snapshots.docs.map(async (task_snapshot) => {
+            return {
+              ...task_snapshot.data(),
+              image_source: await FIREBASE_FUNC.get_image_url(
+                TASK_IMAGE_FOLDER,
+                task_snapshot.data().id
+              ),
+            };
+          })
+        );
+
         registerCategory({
           ...category_snapshot.data(),
-          scroll_tasks: tasks_snapshots.docs.map((task_snapshot) => {
-            return task_snapshot.data();
-          }),
+          scroll_tasks: scroll_tasks,
         });
       });
     };
@@ -103,7 +115,6 @@ const TopDisplay: React.FC = () => {
       <TitleCard title={"Category一覧"} description={"description"} />
       <CategoryList />
       <section className="hero is-medium">
-        <HorizontalLoopImages tasks={random_medium_tasks} />
         <SmallHorizontalLoopImages scroll_tasks={random_small_tasks} />
       </section>
       <TitleCard title={"Category_1"} description={"description"} />
