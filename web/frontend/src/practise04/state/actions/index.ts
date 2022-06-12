@@ -51,11 +51,16 @@ export interface BundleCompleteAction {
 export interface LOGIN {
   type: ActionType.LOGIN;
   payload: {
-    //   cellId: string;
-    //   bundle: {
-    //     code: string;
-    //     err: string;
-    //   };
+    email: string;
+    uid: string;
+  };
+}
+
+export interface SIGN_UP {
+  type: ActionType.SIGN_UP;
+  payload: {
+    email: string;
+    uid: string;
   };
 }
 
@@ -101,6 +106,7 @@ export type Action =
   | BundleStartAction
   | BundleCompleteAction
   | LOGIN
+  | SIGN_UP
   | RegisterTaskAction
   | UpdateTaskAction
   | RegisterCategoryAction

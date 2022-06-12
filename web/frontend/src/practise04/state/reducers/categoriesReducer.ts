@@ -17,11 +17,6 @@ const initialState: CategoriesState = {
   categories: [],
 };
 
-const randomId = () => {
-  // return Math.floor(Math.random() * 100);
-  return Math.random().toString(36).substr(2, 5);
-};
-
 const reducer = produce(
   (state: CategoriesState = initialState, action: Action) => {
     switch (action.type) {

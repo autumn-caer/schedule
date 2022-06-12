@@ -8,6 +8,7 @@ import {
   UpdateCellAction,
   Direction,
   LOGIN,
+  SIGN_UP,
   RegisterTaskAction,
   UpdateTaskAction,
   RegisterCategoryAction,
@@ -16,10 +17,17 @@ import {
 } from "../actions";
 import { task, category } from "../../types/types";
 
-export const logIn = (id: string, content: string): LOGIN => {
+export const logIn = (email: string, uid: string): LOGIN => {
   return {
     type: ActionType.LOGIN,
-    payload: {},
+    payload: { email, uid },
+  };
+};
+
+export const signUp = (email: string, uid: string): SIGN_UP => {
+  return {
+    type: ActionType.SIGN_UP,
+    payload: { email, uid },
   };
 };
 

@@ -6,6 +6,7 @@ export enum ActionType {
   BUNDLE_START = "bundle_start",
   BUNDLE_COMPLETE = "bundle_complete",
   LOGIN = "login",
+  SIGN_UP = "sign_up",
   REGISTER_TASK = "register_task",
   UPDATE_TASK = "update_task",
   REGISTER_CATEGORY = "register_category",

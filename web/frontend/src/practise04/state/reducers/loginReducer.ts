@@ -4,27 +4,51 @@ import produce from "immer";
 
 interface LoginState {
   login: boolean;
+  email: string | null;
+  uid: string | null;
   name: string | null;
   error: string | null;
   order: string[];
-  //   data: {
-  //     [key: string]: Cell;
-  //   };
 }
 
 const initialState: LoginState = {
   login: false,
-  name: "initial_name",
+  email: null,
+  uid: null,
+  name: null,
   error: null,
   order: [],
-  //   data: {},
 };
 
 const reducer = produce((state: LoginState = initialState, action: Action) => {
+  console.log("inside reducer");
+  console.log(action);
   switch (action.type) {
+    case ActionType.SIGN_UP:
+      console.log("SIGN_UP");
+      state = {
+        ...state,
+        login: true,
+        email: action.payload.email,
+        uid: action.payload.uid,
+      };
+      console.log(state);
+      return state;
     case ActionType.LOGIN:
+      console.log("LOGIN");
+      console.log(action.payload.email);
+      console.log(action.payload.uid);
+      state = {
+        ...state,
+        login: true,
+        email: action.payload.email,
+        uid: action.payload.uid,
+      };
+      console.log(state);
       return state;
     default:
+      console.log("OTHEER");
+      console.log(state);
       return state;
   }
 });
