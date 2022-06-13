@@ -31,3 +31,9 @@ export type RootStackParamList = {
   TopDisplay: undefined;
   TaskRegister: {};
 };
+
+export type FireBaseLoginInfo = {
+  email: string;
+  uid: string;
+  error_message: string | null;
+};

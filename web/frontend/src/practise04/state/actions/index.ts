@@ -64,6 +64,11 @@ export interface SIGN_UP {
   };
 }
 
+export interface SIGN_OUT {
+  type: ActionType.SIGN_OUT;
+  payload: {};
+}
+
 export interface RegisterTaskAction {
   type: ActionType.REGISTER_TASK;
   payload: {
@@ -107,6 +112,7 @@ export type Action =
   | BundleCompleteAction
   | LOGIN
   | SIGN_UP
+  | SIGN_OUT
   | RegisterTaskAction
   | UpdateTaskAction
   | RegisterCategoryAction

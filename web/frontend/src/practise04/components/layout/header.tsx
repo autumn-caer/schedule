@@ -1,11 +1,32 @@
 import React, { useState } from "react";
+import * as FIREBASE_FUNC from "../../utils/firebase_function";
+import { useNavigate } from "react-router-dom";
+import ConfirmModal from "../../atoms/confirm_modal";
 import { Link } from "react-router-dom";
+import { useActions } from "../../hooks/use-actions";
 
 const Header: React.FC = () => {
   const [is_nav_menu_show, set_is_nav_menu_show] = useState<boolean>(false);
+  const [show_modal, setShowModal] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const { signOut } = useActions();
 
   const nav_bar_show_handler = () => {
     set_is_nav_menu_show(!is_nav_menu_show);
+  };
+
+  const signOutHandler = async () => {
+    const user_info = await FIREBASE_FUNC.signOutFirebase();
+
+    if (user_info.error_message) {
+      alert(user_info.error_message);
+      setShowModal(false);
+      return;
+    }
+
+    signOut();
+    setShowModal(false);
+    navigate("/signin");
   };
 
   return (
@@ -63,17 +84,26 @@ const Header: React.FC = () => {
                 </div>
               </div>
               <span className="navbar-item">
-                <Link to={`/`} className="button is-primary is-inverted">
+                <div
+                  className="button is-primary is-inverted"
+                  onClick={() => setShowModal(true)}
+                >
                   <span className="icon">
                     <i className="fab fa-github"></i>
                   </span>
-                  <span>Download</span>
-                </Link>
+                  <span>Sign Out</span>
+                </div>
               </span>
             </div>
           </div>
         </div>
       </nav>
+      <ConfirmModal
+        show_modal={show_modal}
+        setShowModal={setShowModal}
+        confirmSubmit={signOutHandler}
+        message="サインアウトしますか？"
+      />
     </React.Fragment>
   );
 };

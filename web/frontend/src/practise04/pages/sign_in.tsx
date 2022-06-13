@@ -5,6 +5,7 @@ import { auth } from "../../firebase";
 import ConfirmModal from "../atoms/confirm_modal";
 import { useActions } from "../hooks/use-actions";
 import { useTypedSelector } from "../hooks/use-typed-selector";
+import * as FIREBASE_FUNC from "../utils/firebase_function";
 
 type Inputs = {
   email: string;
@@ -41,19 +42,35 @@ const SignIn = () => {
     setShowModal(true);
   };
 
-  const signUpFirebase = async () => {
-    const user_info = await auth.signInWithEmailAndPassword(
+  const signInFirebase = async () => {
+    const user_info = await FIREBASE_FUNC.signInFirebase(
       watch("email"),
       watch("password")
     );
 
-    if (user_info.user && user_info.user.email && user_info.user.uid) {
-      logIn(user_info.user.email, user_info.user.uid);
+    if (user_info.error_message) {
+      alert(user_info.error_message);
+      setShowModal(false);
+      return;
     }
 
+    logIn(user_info.email, user_info.uid);
     setShowModal(false);
     navigate("/");
   };
+
+  const test = async () => {
+    await auth.onAuthStateChanged(function (user) {
+      if (user) {
+        if (user.email) {
+          logIn(user.email, user.uid);
+        }
+      } else {
+      }
+    });
+  };
+
+  test();
 
   return (
     <div>
@@ -127,7 +144,7 @@ const SignIn = () => {
       <ConfirmModal
         show_modal={show_modal}
         setShowModal={setShowModal}
-        confirmSubmit={signUpFirebase}
+        confirmSubmit={signInFirebase}
       />
     </div>
   );

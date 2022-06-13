@@ -5,7 +5,7 @@ import { auth } from "../../firebase";
 import ConfirmModal from "../atoms/confirm_modal";
 import { useActions } from "../hooks/use-actions";
 import { useTypedSelector } from "../hooks/use-typed-selector";
-
+import * as FIREBASE_FUNC from "../utils/firebase_function";
 type Inputs = {
   email: string;
   password: string;
@@ -42,15 +42,18 @@ const SignUp = () => {
   };
 
   const signUpFirebase = async () => {
-    const user_info = await auth.createUserWithEmailAndPassword(
+    const user_info = await FIREBASE_FUNC.signUpFirebase(
       watch("email"),
       watch("password")
     );
 
-    if (user_info.user && user_info.user.email && user_info.user.uid) {
-      signUp(user_info.user.email, user_info.user.uid);
+    if (user_info.error_message) {
+      alert(user_info.error_message);
+      setShowModal(false);
+      return;
     }
 
+    signUp(user_info.email, user_info.uid);
     setShowModal(false);
     navigate("/");
   };

@@ -9,6 +9,7 @@ import {
   Direction,
   LOGIN,
   SIGN_UP,
+  SIGN_OUT,
   RegisterTaskAction,
   UpdateTaskAction,
   RegisterCategoryAction,
@@ -28,6 +29,13 @@ export const signUp = (email: string, uid: string): SIGN_UP => {
   return {
     type: ActionType.SIGN_UP,
     payload: { email, uid },
+  };
+};
+
+export const signOut = (): SIGN_OUT => {
+  return {
+    type: ActionType.SIGN_OUT,
+    payload: {},
   };
 };
 

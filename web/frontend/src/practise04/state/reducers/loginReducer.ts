@@ -21,11 +21,8 @@ const initialState: LoginState = {
 };
 
 const reducer = produce((state: LoginState = initialState, action: Action) => {
-  console.log("inside reducer");
-  console.log(action);
   switch (action.type) {
     case ActionType.SIGN_UP:
-      console.log("SIGN_UP");
       state = {
         ...state,
         login: true,
@@ -35,20 +32,20 @@ const reducer = produce((state: LoginState = initialState, action: Action) => {
       console.log(state);
       return state;
     case ActionType.LOGIN:
-      console.log("LOGIN");
-      console.log(action.payload.email);
-      console.log(action.payload.uid);
       state = {
         ...state,
         login: true,
         email: action.payload.email,
         uid: action.payload.uid,
       };
-      console.log(state);
       return state;
+    case ActionType.SIGN_OUT:
+      return {
+        login: false,
+        email: null,
+        uid: null,
+      };
     default:
-      console.log("OTHEER");
-      console.log(state);
       return state;
   }
 });
