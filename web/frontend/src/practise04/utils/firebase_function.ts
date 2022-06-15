@@ -1,12 +1,23 @@
 // import firebase from "firebase";
 import { FirebaseError } from "firebase/app";
-import { storage, auth } from "../../firebase";
+import { storage, auth, db } from "../../firebase";
 import {
   ref,
   uploadBytes,
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+
+import {
+  collection,
+  getDocs,
+  doc,
+  query,
+  where,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
+
 import { FireBaseLoginInfo } from "../types/types";
 
 export const uploadImage = async (
@@ -70,17 +81,32 @@ export const signUpFirebase = async (
       password
     );
 
-    if (!user_info.user || !user_info.user.email || user_info.user.uid) {
-      // throw new Error("ネットワークアクセス失敗");
-      return { email: "", uid: "", error_message: ERR_MSG_FAILED };
+    if (!user_info.user || !user_info.user.email || !user_info.user.uid) {
+      return { user_id: "", email: "", uid: "", error_message: ERR_MSG_FAILED };
     }
+
+    let fireBaseLoginInfo: FireBaseLoginInfo = {
+      uid: user_info.user.uid,
+      email: user_info.user.email,
+    };
+
+    //Collection:usersに登録する
+    const createRef = doc(collection(db, "users"));
+    await setDoc(createRef, fireBaseLoginInfo);
+
     return {
+      user_id: createRef.id,
       email: user_info.user.email,
       uid: user_info.user.uid,
       error_message: null,
     };
   } catch (error) {
-    return { email: "", uid: "", error_message: createErrorMessage(error) };
+    return {
+      user_id: "",
+      email: "",
+      uid: "",
+      error_message: createErrorMessage(error),
+    };
   }
 };
 
@@ -90,26 +116,38 @@ export const signInFirebase = async (
 ): Promise<FireBaseLoginInfo> => {
   try {
     const user_info = await auth.signInWithEmailAndPassword(email, password);
-    if (!user_info.user || !user_info.user.email || user_info.user.uid) {
+    if (!user_info.user || !user_info.user.email || !user_info.user.uid) {
       // throw new Error("ネットワークアクセス失敗");
-      return { email: "", uid: "", error_message: null };
+      return { user_id: "", email: "", uid: "", error_message: ERR_MSG_FAILED };
     }
+
     return {
+      user_id: await fetchUserId(user_info.user.uid),
       email: user_info.user.email,
       uid: user_info.user.uid,
-      error_message: ERR_MSG_FAILED,
+      error_message: null,
     };
   } catch (error) {
-    return { email: "", uid: "", error_message: createErrorMessage(error) };
+    return {
+      user_id: "",
+      email: "",
+      uid: "",
+      error_message: createErrorMessage(error),
+    };
   }
 };
 
 export const signOutFirebase = async (): Promise<FireBaseLoginInfo> => {
   try {
     await auth.signOut();
-    return { email: "", uid: "", error_message: null };
+    return { user_id: "", email: "", uid: "", error_message: null };
   } catch (error) {
-    return { email: "", uid: "", error_message: createErrorMessage(error) };
+    return {
+      user_id: "",
+      email: "",
+      uid: "",
+      error_message: createErrorMessage(error),
+    };
   }
 };
 
@@ -142,4 +180,16 @@ const createErrorMessage = (error: unknown) => {
   }
 
   return error_message;
+};
+
+const fetchUserId = async (auth_uid: string) => {
+  const user_q = query(collection(db, "users"), where("uid", "==", auth_uid));
+
+  const user_snapshots = await getDocs(user_q);
+  var user_id: string = "";
+  await user_snapshots.forEach(async (user_snapshot) => {
+    user_id = user_snapshot.id;
+  });
+
+  return user_id;
 };

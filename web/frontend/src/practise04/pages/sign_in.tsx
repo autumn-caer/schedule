@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
@@ -51,26 +51,26 @@ const SignIn = () => {
     if (user_info.error_message) {
       alert(user_info.error_message);
       setShowModal(false);
-      return;
+      navigate("/signin");
+    } else {
+      logIn(user_info.email, user_info.uid);
+      setShowModal(false);
+      navigate("/");
     }
-
-    logIn(user_info.email, user_info.uid);
-    setShowModal(false);
-    navigate("/");
   };
 
-  const test = async () => {
-    await auth.onAuthStateChanged(function (user) {
-      if (user) {
-        if (user.email) {
+  useEffect(() => {
+    const initLoginData = async () => {
+      await auth.onAuthStateChanged(function (user) {
+        if (user && user.email && user.uid) {
           logIn(user.email, user.uid);
+        } else {
         }
-      } else {
-      }
-    });
-  };
+      });
+    };
 
-  test();
+    initLoginData();
+  }, []);
 
   return (
     <div>

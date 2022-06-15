@@ -11,7 +11,14 @@ import Image from "../assets/images/mv0.jpeg";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import * as COMMON_FUNC from "../utils/common_function";
 
-import { collection, getDocs, doc, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  query,
+  where,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { CategoryConverter, TaskConverter } from "../converters/converters";
 import * as FIREBASE_FUNC from "../utils/firebase_function";
@@ -19,6 +26,7 @@ import { TASK_IMAGE_FOLDER } from "../consts/consts";
 
 const TopDisplay: React.FC = () => {
   const { categories } = useTypedSelector((state) => state.categories);
+  const { uid } = useTypedSelector((state) => state.login);
 
   const all_tasks = categories
     .map(function (category, _) {
@@ -26,7 +34,6 @@ const TopDisplay: React.FC = () => {
     })
     .flat();
 
-  const random_medium_tasks = COMMON_FUNC.arrayShuffle(all_tasks).slice(0, 6);
   const random_small_tasks = COMMON_FUNC.arrayShuffle(all_tasks).slice(0, 4);
 
   var categories_list = categories.map(function (category) {
@@ -38,10 +45,23 @@ const TopDisplay: React.FC = () => {
   useEffect(() => {
     const fetch_data = async () => {
       clearCategoriesAndTasks();
-      const categories_snapshot = await getDocs(
-        collection(db, "category").withConverter(CategoryConverter)
+
+      const user_q = query(collection(db, "users"), where("uid", "==", uid));
+
+      const user_snapshots = await getDocs(user_q);
+      var user_ref;
+      user_snapshots.forEach(async (user_snapshot) => {
+        user_ref = doc(db, "users", user_snapshot.id);
+      });
+
+      const category_q = query(
+        collection(db, "category").withConverter(CategoryConverter),
+        where("user", "==", user_ref)
       );
 
+      const categories_snapshot = await getDocs(category_q);
+
+      console.log(categories_snapshot);
       categories_snapshot.forEach(async (category_snapshot) => {
         const category_doc_ref = doc(
           db,

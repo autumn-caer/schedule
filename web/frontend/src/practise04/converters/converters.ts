@@ -1,10 +1,29 @@
-import { category, task } from "../types/types";
+import { category, task, FireBaseLoginInfo } from "../types/types";
 import { FirestoreDataConverter } from "firebase/firestore";
 import * as COMMON_FUNC from "../utils/common_function";
 import { db } from "../../firebase";
 import { doc } from "firebase/firestore";
 import * as FIREBASE_FUNC from "../utils/firebase_function";
 import { CATEGORY_IMAGE_FOLDER } from "../consts/consts";
+
+export const FireBaseLoginInfoConverter: FirestoreDataConverter<FireBaseLoginInfo> =
+  {
+    toFirestore: (fireBaseLoginInfo: FireBaseLoginInfo) => {
+      return {
+        __type: "Users",
+        uid: fireBaseLoginInfo.uid,
+      };
+    },
+    fromFirestore: (sn) => {
+      const data = sn.data();
+      var fireBaseLoginInfo = {
+        ...data,
+      } as FireBaseLoginInfo;
+      fireBaseLoginInfo.user_id = sn.id;
+
+      return fireBaseLoginInfo;
+    },
+  };
 
 export const CategoryConverter: FirestoreDataConverter<category> = {
   toFirestore: (category: category) => {

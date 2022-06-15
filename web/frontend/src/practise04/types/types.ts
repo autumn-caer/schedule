@@ -33,7 +33,8 @@ export type RootStackParamList = {
 };
 
 export type FireBaseLoginInfo = {
+  user_id?: string;
   email: string;
   uid: string;
-  error_message: string | null;
+  error_message?: string | null;
 };

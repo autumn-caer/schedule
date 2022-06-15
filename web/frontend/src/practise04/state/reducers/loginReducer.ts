@@ -29,7 +29,6 @@ const reducer = produce((state: LoginState = initialState, action: Action) => {
         email: action.payload.email,
         uid: action.payload.uid,
       };
-      console.log(state);
       return state;
     case ActionType.LOGIN:
       state = {
