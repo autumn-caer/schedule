@@ -2,15 +2,13 @@ import React, { useState, useMemo, useEffect } from "react";
 import "../assets/css/components/display_frame_one.css";
 import "../assets/css/components/task_register.css";
 import { useTypedSelector } from "../hooks/use-typed-selector";
-import { useActions } from "../hooks/use-actions";
 import { category } from "../types/types";
 import { useNavigate, useParams } from "react-router-dom";
 import * as COMMON_FUNC from "../utils/common_function";
 import * as FIREBASE_FUNC from "../utils/firebase_function";
-
+import { CategoryConverter } from "../converters/converters";
 import ConfirmModal from "../atoms/confirm_modal";
 import { useForm, SubmitHandler } from "react-hook-form";
-import scroll_images_04 from "../assets/images/mv0_1.jpeg";
 import { CATEGORY_IMAGE_FOLDER } from "../consts/consts";
 import {
   collection,
@@ -34,9 +32,9 @@ type Inputs = {
 
 const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
   const { categories } = useTypedSelector((state) => state.categories);
+  const { user_id } = useTypedSelector((state) => state.login);
   const { id } = useParams();
   const navigate = useNavigate();
-  const { registerCategory, updateCategory } = useActions();
   const [show_modal, setShowModal] = useState<boolean>(false);
 
   let target_category: category | null = null;
@@ -88,13 +86,19 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
       message_middle: watch("message_middle"),
       message_bottom: watch("message_bottom"),
       task_list_desplay: false,
+      user_id: user_id,
     };
+
+    console.log(new_category);
 
     let updateRef: DocumentReference<DocumentData> | null = null;
     if (id) {
-      updateRef = doc(db, "category", id);
+      updateRef = doc(db, "category", id).withConverter(CategoryConverter);
     } else {
-      updateRef = doc(collection(db, "category"));
+      //Userレファレンスを作成する
+      updateRef = doc(collection(db, "category")).withConverter(
+        CategoryConverter
+      );
     }
 
     if (updateRef) {

@@ -88,6 +88,7 @@ export const signUpFirebase = async (
     let fireBaseLoginInfo: FireBaseLoginInfo = {
       uid: user_info.user.uid,
       email: user_info.user.email,
+      user_id: null,
     };
 
     //Collection:usersに登録する
@@ -151,6 +152,18 @@ export const signOutFirebase = async (): Promise<FireBaseLoginInfo> => {
   }
 };
 
+export const fetchUserId = async (auth_uid: string) => {
+  const user_q = query(collection(db, "users"), where("uid", "==", auth_uid));
+
+  const user_snapshots = await getDocs(user_q);
+  var user_id: string = "";
+  await user_snapshots.forEach(async (user_snapshot) => {
+    user_id = user_snapshot.id;
+  });
+
+  return user_id;
+};
+
 const createErrorMessage = (error: unknown) => {
   var error_message = "";
   if (error instanceof FirebaseError) {
@@ -180,16 +193,4 @@ const createErrorMessage = (error: unknown) => {
   }
 
   return error_message;
-};
-
-const fetchUserId = async (auth_uid: string) => {
-  const user_q = query(collection(db, "users"), where("uid", "==", auth_uid));
-
-  const user_snapshots = await getDocs(user_q);
-  var user_id: string = "";
-  await user_snapshots.forEach(async (user_snapshot) => {
-    user_id = user_snapshot.id;
-  });
-
-  return user_id;
 };

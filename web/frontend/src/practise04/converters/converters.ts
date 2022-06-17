@@ -27,12 +27,14 @@ export const FireBaseLoginInfoConverter: FirestoreDataConverter<FireBaseLoginInf
 
 export const CategoryConverter: FirestoreDataConverter<category> = {
   toFirestore: (category: category) => {
+    const user_doc_ref = doc(db, "users", category.user_id);
     return {
       __type: "category",
       name: category.name,
       message_top: category.message_top,
       message_middle: category.message_middle,
       message_bottom: category.message_bottom,
+      user: user_doc_ref,
     };
   },
   fromFirestore: (sn) => {

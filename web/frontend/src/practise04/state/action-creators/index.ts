@@ -18,10 +18,14 @@ import {
 } from "../actions";
 import { task, category } from "../../types/types";
 
-export const logIn = (email: string, uid: string): LOGIN => {
+export const logIn = (
+  email: string,
+  uid: string,
+  user_id: string | null
+): LOGIN => {
   return {
     type: ActionType.LOGIN,
-    payload: { email, uid },
+    payload: { email, uid, user_id },
   };
 };
 

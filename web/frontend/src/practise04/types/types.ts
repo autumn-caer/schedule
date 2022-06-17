@@ -17,6 +17,7 @@ export type task = {
 };
 
 export type category = {
+  user_id: string;
   category_id: string;
   name: string;
   main_image: imageTag;
@@ -33,7 +34,7 @@ export type RootStackParamList = {
 };
 
 export type FireBaseLoginInfo = {
-  user_id?: string;
+  user_id: string | null;
   email: string;
   uid: string;
   error_message?: string | null;

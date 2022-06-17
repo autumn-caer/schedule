@@ -6,6 +6,7 @@ interface LoginState {
   login: boolean;
   email: string | null;
   uid: string | null;
+  user_id: string | null;
   name: string | null;
   error: string | null;
   order: string[];
@@ -17,6 +18,7 @@ const initialState: LoginState = {
   uid: null,
   name: null,
   error: null,
+  user_id: null,
   order: [],
 };
 
@@ -36,6 +38,7 @@ const reducer = produce((state: LoginState = initialState, action: Action) => {
         login: true,
         email: action.payload.email,
         uid: action.payload.uid,
+        user_id: action.payload.user_id,
       };
       return state;
     case ActionType.SIGN_OUT:

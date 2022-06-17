@@ -76,9 +76,9 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
       category: target_category?.category_id,
       from_date: task ? new Date(task.from_date) : new Date(),
       to_date: task ? new Date(task.to_date) : new Date(),
-      status: task?.status,
+      status: task?.title,
     };
-  }, [task]);
+  }, [task, target_category]);
 
   const {
     register,

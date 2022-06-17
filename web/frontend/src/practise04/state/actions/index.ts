@@ -53,6 +53,7 @@ export interface LOGIN {
   payload: {
     email: string;
     uid: string;
+    user_id: string | null;
   };
 }
 
