@@ -89,8 +89,6 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
       user_id: user_id,
     };
 
-    console.log(new_category);
-
     let updateRef: DocumentReference<DocumentData> | null = null;
     if (id) {
       updateRef = doc(db, "category", id).withConverter(CategoryConverter);

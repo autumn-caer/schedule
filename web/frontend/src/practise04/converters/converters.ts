@@ -52,7 +52,7 @@ export const CategoryConverter: FirestoreDataConverter<category> = {
 };
 
 export const TaskConverter: FirestoreDataConverter<task> = {
-  toFirestore: async (task: task) => {
+  toFirestore: (task: task) => {
     const category_doc_ref = doc(db, "category", task.category_id);
     return {
       __type: "task",

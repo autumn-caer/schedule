@@ -60,7 +60,6 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
       if (!tmp) {
         throw new Error("タスクが存在しません。");
       }
-      console.log(tmp);
       task = tmp;
     }
   }
@@ -132,7 +131,7 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
     if (category && category.category_id) {
       return (
         <option key={category.category_id} value={category.category_id}>
-          {category.message_top}
+          {category.name}
         </option>
       );
     } else {

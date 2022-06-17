@@ -42,7 +42,10 @@ const App = () => {
                 <Route path="/" element={<PrivateRoutes />}>
                   <Route path="" element={<TopDisplay />} />
                   <Route path="task">
-                    <Route path="" element={<TaskRegister />}></Route>
+                    <Route
+                      path=":category_id"
+                      element={<TaskRegister />}
+                    ></Route>
                     <Route
                       path=":category_id/:id"
                       element={<TaskRegister />}
