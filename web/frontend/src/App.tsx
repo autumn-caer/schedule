@@ -31,7 +31,12 @@ const App = () => {
     <div>
       <Provider store={store}>
         <Header />
-        <div className="hero ">
+        <div
+          className="hero "
+          style={{
+            minHeight: "500px",
+          }}
+        >
           <div className="hero-body">
             <ScrolllTopWrapper>
               <Routes>

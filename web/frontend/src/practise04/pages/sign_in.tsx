@@ -59,23 +59,6 @@ const SignIn = () => {
     }
   };
 
-  useEffect(() => {
-    const initLoginData = async () => {
-      await auth.onAuthStateChanged(async function (user) {
-        if (user && user.email && user.uid) {
-          logIn(
-            user.email,
-            user.uid,
-            await FIREBASE_FUNC.fetchUserId(user.uid)
-          );
-        } else {
-        }
-      });
-    };
-
-    initLoginData();
-  }, []);
-
   return (
     <div>
       <div className="columns">
