@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import * as FIREBASE_FUNC from "../../utils/firebase_function";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "../../atoms/confirm_modal";
+import ProgressModal from "../../atoms/progress_modal";
 import { Link } from "react-router-dom";
 import { useActions } from "../../hooks/use-actions";
 
 const Header: React.FC = () => {
   const [is_nav_menu_show, set_is_nav_menu_show] = useState<boolean>(false);
   const [show_modal, setShowModal] = useState<boolean>(false);
+  const [progress_modal, setProgressModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const { signOut } = useActions();
 
@@ -16,16 +18,19 @@ const Header: React.FC = () => {
   };
 
   const signOutHandler = async () => {
+    setShowModal(false);
+    setProgressModal(true);
+
     const user_info = await FIREBASE_FUNC.signOutFirebase();
 
     if (user_info.error_message) {
       alert(user_info.error_message);
-      setShowModal(false);
+      setProgressModal(false);
       return;
     }
 
     signOut();
-    setShowModal(false);
+    setProgressModal(false);
     navigate("/signin");
   };
 
@@ -104,6 +109,7 @@ const Header: React.FC = () => {
         confirmSubmit={signOutHandler}
         message="サインアウトしますか？"
       />
+      <ProgressModal show_modal={progress_modal} />
     </React.Fragment>
   );
 };

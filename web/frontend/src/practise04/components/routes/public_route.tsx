@@ -29,8 +29,6 @@ const PublicRoutes: React.FC<RouteProps> = () => {
     initLoginData();
   }, []);
 
-  console.log(authChecked);
-
   return authChecked ? login ? <Navigate to="/" /> : <Outlet /> : <></>;
 };
 

@@ -1,6 +1,8 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import "../assets/css/components/display_frame_one.css";
 import SmallHorizontalLoopImages from "./small_horizontal_loop_images";
+import ImageWithAltDefault from "../atoms/image_with_alt_default";
+
 import { category } from "../types/types";
 import { CATEGORY_IMAGE_FOLDER } from "../consts/consts";
 import * as FIREBASE_FUNC from "../utils/firebase_function";
@@ -32,10 +34,10 @@ const DisplayFrameOne: React.FC<DisplayFrameOneProps> = ({ category }) => {
       <div className="frame_color_light_blue"></div>
       <div className="columns" style={{ position: "absolute", top: "100px" }}>
         <div className="column is-one-third">
-          <div className="card">
+          <div className="card" style={{ width: `90%` }}>
             <div className="card-image">
               <figure className="image is-3by3">
-                <img src={image} alt="img" />
+                <ImageWithAltDefault image={image} />
               </figure>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import ConfirmModal from "../atoms/confirm_modal";
+import ProgressModal from "../atoms/progress_modal";
 import { useActions } from "../hooks/use-actions";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import * as FIREBASE_FUNC from "../utils/firebase_function";
@@ -17,6 +18,7 @@ const SignUp = () => {
 
   const { signUp } = useActions();
   const [show_modal, setShowModal] = useState<boolean>(false);
+  const [progress_modal, setProgressModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const defaultValues = useMemo(() => {
@@ -42,6 +44,8 @@ const SignUp = () => {
   };
 
   const signUpFirebase = async () => {
+    setShowModal(false);
+    setProgressModal(true);
     const user_info = await FIREBASE_FUNC.signUpFirebase(
       watch("email"),
       watch("password")
@@ -49,12 +53,12 @@ const SignUp = () => {
 
     if (user_info.error_message) {
       alert(user_info.error_message);
-      setShowModal(false);
+      setProgressModal(false);
       return;
     }
 
     signUp(user_info.email, user_info.uid);
-    setShowModal(false);
+    setProgressModal(false);
     navigate("/");
   };
 
@@ -146,6 +150,7 @@ const SignUp = () => {
         setShowModal={setShowModal}
         confirmSubmit={signUpFirebase}
       />
+      <ProgressModal show_modal={progress_modal} />
     </div>
   );
 };

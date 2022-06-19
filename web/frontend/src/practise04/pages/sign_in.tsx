@@ -1,8 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase";
-import ConfirmModal from "../atoms/confirm_modal";
+import ProgressModal from "../atoms/progress_modal";
 import { useActions } from "../hooks/use-actions";
 import { useTypedSelector } from "../hooks/use-typed-selector";
 import * as FIREBASE_FUNC from "../utils/firebase_function";
@@ -40,6 +39,7 @@ const SignIn = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setShowModal(true);
+    signInFirebase();
   };
 
   const signInFirebase = async () => {
@@ -128,11 +128,7 @@ const SignIn = () => {
           <div style={{ borderBottomColor: "rgb(150, 105, 73);" }}>next</div>
         </div>
       </div>
-      <ConfirmModal
-        show_modal={show_modal}
-        setShowModal={setShowModal}
-        confirmSubmit={signInFirebase}
-      />
+      <ProgressModal show_modal={show_modal} />
     </div>
   );
 };
