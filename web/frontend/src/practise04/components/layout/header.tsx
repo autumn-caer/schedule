@@ -5,8 +5,11 @@ import ConfirmModal from "../../atoms/confirm_modal";
 import ProgressModal from "../../atoms/progress_modal";
 import { Link } from "react-router-dom";
 import { useActions } from "../../hooks/use-actions";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
 
 const Header: React.FC = () => {
+  const { login } = useTypedSelector((state) => state.login);
+
   const [is_nav_menu_show, set_is_nav_menu_show] = useState<boolean>(false);
   const [show_modal, setShowModal] = useState<boolean>(false);
   const [progress_modal, setProgressModal] = useState<boolean>(false);
@@ -88,17 +91,19 @@ const Header: React.FC = () => {
                   </Link>
                 </div>
               </div>
-              <span className="navbar-item">
-                <div
-                  className="button is-primary is-inverted"
-                  onClick={() => setShowModal(true)}
-                >
-                  <span className="icon">
-                    <i className="fab fa-github"></i>
-                  </span>
-                  <span>Sign Out</span>
-                </div>
-              </span>
+              {login && (
+                <span className="navbar-item">
+                  <div
+                    className="button is-primary is-inverted"
+                    onClick={() => setShowModal(true)}
+                  >
+                    <span className="icon">
+                      <i className="fab fa-github"></i>
+                    </span>
+                    <span>Sign Out</span>
+                  </div>
+                </span>
+              )}
             </div>
           </div>
         </div>

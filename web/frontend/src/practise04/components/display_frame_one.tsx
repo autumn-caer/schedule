@@ -26,7 +26,10 @@ const DisplayFrameOne: React.FC<DisplayFrameOneProps> = ({ category }) => {
           console.log(error);
         });
     };
-    fetch_data();
+
+    if (category.has_image) {
+      fetch_data();
+    }
   }, []);
 
   return (

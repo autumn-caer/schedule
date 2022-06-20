@@ -13,7 +13,7 @@ import ConfirmModal from "../atoms/confirm_modal";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { DatePicker } from "../atoms/date_picker";
 import * as FIREBASE_FUNC from "../utils/firebase_function";
-import { CategoryConverter, TaskConverter } from "../converters/converters";
+import { TaskConverter } from "../converters/converters";
 import { TASK_IMAGE_FOLDER, STATUS_LIST } from "../consts/consts";
 
 import {
@@ -102,8 +102,10 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
       from_date: COMMON_FUNC.formatDateYYYYMMDD(watch("from_date")),
       to_date: COMMON_FUNC.formatDateYYYYMMDD(watch("to_date")),
       status: watch("status"),
+      has_image: COMMON_FUNC.isNonNullable(image),
     };
 
+    console.log(task);
     if (id && !category_id) {
       throw new Error("カテゴリーが存在しません。");
     }
@@ -118,7 +120,13 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
     if (updateRef) {
       await setDoc(updateRef, task);
       if (image) {
-        await FIREBASE_FUNC.uploadImage(image, TASK_IMAGE_FOLDER, updateRef.id);
+        if (FIREBASE_FUNC.isImageChanged(image)) {
+          await FIREBASE_FUNC.uploadImage(
+            image,
+            TASK_IMAGE_FOLDER,
+            updateRef.id
+          );
+        }
       } else {
         await FIREBASE_FUNC.deleteImage(TASK_IMAGE_FOLDER, updateRef.id);
       }

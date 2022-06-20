@@ -2,6 +2,7 @@ import React from "react";
 import "../assets/css/components/display_frame_one.css";
 import { task } from "../types/types";
 import { useNavigate } from "react-router-dom";
+import ImageWithAltDefault from "../atoms/image_with_alt_default";
 
 interface TaskListColumnProps {
   task: task;
@@ -18,7 +19,7 @@ const TaskListColumn: React.FC<TaskListColumnProps> = ({ task }) => {
       <div className="card is-clickable hover_color_primary">
         <div className="card-image p-3">
           <figure className="image is-4by3">
-            <img src={task.image_source} alt="img" />
+            <ImageWithAltDefault image={task.image_source} />
           </figure>
         </div>
         <div className="card-content">

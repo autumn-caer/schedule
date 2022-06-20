@@ -87,6 +87,7 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
       message_bottom: watch("message_bottom"),
       task_list_desplay: false,
       user_id: user_id,
+      has_image: COMMON_FUNC.isNonNullable(image),
     };
 
     let updateRef: DocumentReference<DocumentData> | null = null;
@@ -102,11 +103,13 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
     if (updateRef) {
       await setDoc(updateRef, new_category);
       if (image) {
-        await FIREBASE_FUNC.uploadImage(
-          image,
-          CATEGORY_IMAGE_FOLDER,
-          updateRef.id
-        );
+        if (FIREBASE_FUNC.isImageChanged(image)) {
+          await FIREBASE_FUNC.uploadImage(
+            image,
+            CATEGORY_IMAGE_FOLDER,
+            updateRef.id
+          );
+        }
       } else {
         await FIREBASE_FUNC.deleteImage(CATEGORY_IMAGE_FOLDER, updateRef.id);
       }

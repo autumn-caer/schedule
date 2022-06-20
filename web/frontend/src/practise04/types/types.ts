@@ -14,6 +14,7 @@ export type task = {
   to_date: string;
   category_id: string;
   status: string;
+  has_image: boolean;
 };
 
 export type category = {
@@ -26,6 +27,7 @@ export type category = {
   message_middle: string;
   message_bottom: string;
   task_list_desplay: boolean;
+  has_image: boolean;
 };
 
 export type RootStackParamList = {

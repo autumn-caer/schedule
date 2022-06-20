@@ -34,6 +34,7 @@ export const CategoryConverter: FirestoreDataConverter<category> = {
       message_top: category.message_top,
       message_middle: category.message_middle,
       message_bottom: category.message_bottom,
+      has_image: category.has_image,
       user: user_doc_ref,
     };
   },
@@ -63,6 +64,7 @@ export const TaskConverter: FirestoreDataConverter<task> = {
       to_date: task.to_date ? new Date(task.to_date) : null,
       category_id: category_doc_ref,
       status: task.status,
+      has_image: task.has_image,
     };
   },
   fromFirestore: (sn) => {

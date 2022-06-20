@@ -44,3 +44,8 @@ export const arrayShuffle = <T>(array: Array<T>) => {
   }
   return array;
 };
+
+export const isNonNullable = <T>(value: T): value is NonNullable<T> => {
+  if (value === null || value === void 0) return false;
+  return true;
+};

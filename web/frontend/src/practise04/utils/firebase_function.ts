@@ -20,6 +20,10 @@ import {
 
 import { FireBaseLoginInfo } from "../types/types";
 
+export const isImageChanged = (imageUri: string) => {
+  return imageUri.startsWith("blob:");
+};
+
 export const uploadImage = async (
   imageUri: string,
   folder: string,

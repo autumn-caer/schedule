@@ -64,10 +64,12 @@ const TopDisplay: React.FC = () => {
           tasks_snapshots.docs.map(async (task_snapshot) => {
             return {
               ...task_snapshot.data(),
-              image_source: await FIREBASE_FUNC.get_image_url(
-                TASK_IMAGE_FOLDER,
-                task_snapshot.data().id
-              ),
+              image_source: task_snapshot.data().has_image
+                ? await FIREBASE_FUNC.get_image_url(
+                    TASK_IMAGE_FOLDER,
+                    task_snapshot.data().id
+                  )
+                : "",
             };
           })
         );
