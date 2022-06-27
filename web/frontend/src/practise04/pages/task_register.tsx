@@ -105,7 +105,6 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
       has_image: COMMON_FUNC.isNonNullable(image),
     };
 
-    console.log(task);
     if (id && !category_id) {
       throw new Error("カテゴリーが存在しません。");
     }
@@ -268,6 +267,19 @@ const TaskRegister: React.FC<TaskRegisterProps> = () => {
                             <span className="file-label">Choose a file…</span>
                           </span>
                           <span className="file-name">{image_name}</span>
+                        </label>
+                        <label
+                          className="file-label"
+                          onClick={() =>
+                            COMMON_FUNC.clearImage(setImageName, setImage)
+                          }
+                        >
+                          <span className="file-cta">
+                            <span className="file-icon">
+                              <i className="fas fa-times"></i>
+                            </span>
+                            <span className="file-label">Clear</span>
+                          </span>
                         </label>
                       </div>
                     </div>

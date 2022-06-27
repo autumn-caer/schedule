@@ -23,7 +23,7 @@ export const onFileInputChange = (
   }
 };
 
-export const deleteImage = (
+export const clearImage = (
   setImageName: (value: React.SetStateAction<string | null>) => void,
   setImage: (value: React.SetStateAction<string>) => void
 ) => {

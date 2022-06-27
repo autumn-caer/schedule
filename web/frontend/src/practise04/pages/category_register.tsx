@@ -250,7 +250,7 @@ const CategoryRegister: React.FC<CategoryRegisterProps> = () => {
                         <span
                           className="file-cta"
                           onClick={() =>
-                            COMMON_FUNC.deleteImage(setImageName, setImage)
+                            COMMON_FUNC.clearImage(setImageName, setImage)
                           }
                         >
                           <span className="file-icon">
